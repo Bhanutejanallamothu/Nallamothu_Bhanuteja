@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -11,6 +10,9 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 export default function Hero() {
   const [urlText, setUrlText] = useState("");
   const [typedLines, setTypedLines] = useState(["", "", ""]);
+  const [currentLine, setCurrentLine] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
+  
   const fullUrl = "http://localhost:8080/profile";
   const fullLines = ["Engineering", "Clean Code &", "Experiences."];
   const portraitImg = PlaceHolderImages.find(img => img.id === "portrait")?.imageUrl || "https://picsum.photos/seed/bhanuteja/800/1000";
@@ -41,6 +43,7 @@ export default function Hero() {
 
     const typeChar = () => {
       if (lineIdx < fullLines.length) {
+        setCurrentLine(lineIdx);
         if (charIdx < fullLines[lineIdx].length) {
           setTypedLines(prev => {
             const next = [...prev];
@@ -52,7 +55,11 @@ export default function Hero() {
         } else {
           lineIdx++;
           charIdx = 0;
-          timeouts.push(setTimeout(typeChar, 300)); // Pause between lines
+          if (lineIdx < fullLines.length) {
+            timeouts.push(setTimeout(typeChar, 300)); // Pause between lines
+          } else {
+            setIsFinished(true);
+          }
         }
       }
     };
@@ -92,19 +99,29 @@ export default function Hero() {
               </motion.div>
               
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1] font-mono">
+                {/* Line 1 */}
                 <div className="min-h-[1.1em]">
                   {typedLines[0]}
-                  {typedLines[0].length < fullLines[0].length && typedLines[0].length > 0 && <span className="w-2 h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />}
+                  {currentLine === 0 && !isFinished && typedLines[0].length > 0 && (
+                    <span className="w-2 h-[0.8em] bg-primary inline-block ml-1 animate-pulse align-middle" />
+                  )}
                 </div>
+                {/* Line 2 */}
                 <div className="min-h-[1.1em]">
-                  <span className="gradient-text">{typedLines[1].replace(' &', '')}</span>
+                  <span className="gradient-text">
+                    {typedLines[1].includes('&') ? typedLines[1].split('&')[0] : typedLines[1]}
+                  </span>
                   {typedLines[1].includes('&') && ' &'}
-                  {typedLines[1].length < fullLines[1].length && typedLines[1].length > 0 && <span className="w-2 h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />}
+                  {currentLine === 1 && !isFinished && typedLines[1].length > 0 && (
+                    <span className="w-2 h-[0.8em] bg-primary inline-block ml-1 animate-pulse align-middle" />
+                  )}
                 </div>
+                {/* Line 3 */}
                 <div className="min-h-[1.1em]">
                   {typedLines[2]}
-                  {typedLines[2].length < fullLines[2].length && typedLines[2].length > 0 && <span className="w-2 h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />}
-                  {typedLines[2] === fullLines[2] && <span className="w-2 h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />}
+                  {(currentLine === 2 || isFinished) && typedLines[2].length > 0 && (
+                    <span className="w-2 h-[0.8em] bg-primary inline-block ml-1 animate-pulse align-middle" />
+                  )}
                 </div>
               </h1>
               
