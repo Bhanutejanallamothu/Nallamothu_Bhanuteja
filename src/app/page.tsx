@@ -1,4 +1,3 @@
-
 "use client";
 
 import Navbar from "@/components/layout/Navbar";
@@ -13,7 +12,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background selection:bg-primary/30 selection:text-primary-foreground">
+    <main className="min-h-screen relative selection:bg-primary/30 selection:text-primary-foreground">
       <Navbar />
       <Hero />
       <About />
@@ -24,9 +23,23 @@ export default function Home() {
       <Contact />
       <Toaster />
       
-      {/* Visual background details */}
-      <div className="fixed inset-0 -z-50 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#ffffff05_1px,transparent_1px)] [background-size:40px_40px]" />
+      {/* Premium Abstract IDE Workspace Background */}
+      <div className="ide-workspace-bg">
+        {/* Subtle mesh gradients for depth */}
+        <div className="ide-mesh-gradient" />
+        
+        {/* Editor-style grid system */}
+        <div className="ide-grid" />
+        
+        {/* Faint panel divisions mirroring an IDE layout */}
+        <div className="ide-panels" />
+        
+        {/* Decorative code-line abstract pattern */}
+        <div className="code-lines-pattern" />
+        
+        {/* Floating blurred accent shapes */}
+        <div className="absolute top-1/3 -left-20 w-96 h-96 bg-primary/5 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px]" />
       </div>
     </main>
   );

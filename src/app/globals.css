@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -67,13 +66,79 @@
   @apply bg-card/40 backdrop-blur-xl border border-white/10 shadow-2xl;
 }
 
-.hero-glow {
+/* IDE Workspace Background Styles */
+.ide-workspace-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -50;
+  overflow: hidden;
+  background-color: hsl(var(--background));
+}
+
+.ide-mesh-gradient {
   position: absolute;
-  width: 50vw;
-  height: 50vw;
-  background: radial-gradient(circle, rgba(72, 219, 251, 0.15) 0%, rgba(142, 68, 173, 0.05) 100%);
-  filter: blur(100px);
-  z-index: -1;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 0% 0%, rgba(72, 219, 251, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(142, 68, 173, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(72, 219, 251, 0.05) 0%, transparent 50%);
+  filter: blur(80px);
+}
+
+.ide-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+}
+
+.ide-panels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Sidebar Division */
+.ide-panels::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 64px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05), transparent);
+}
+
+/* Activity Bar Division */
+.ide-panels::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 300px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05), transparent);
+  opacity: 0.5;
+}
+
+.code-lines-pattern {
+  position: absolute;
+  right: 5%;
+  top: 10%;
+  width: 300px;
+  height: 400px;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 2px,
+    transparent 2px,
+    transparent 20px
+  );
+  transform: skewY(-5deg);
+  opacity: 0.4;
 }
 
 html {
