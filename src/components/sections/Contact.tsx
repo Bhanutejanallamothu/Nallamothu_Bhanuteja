@@ -1,7 +1,6 @@
-
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Github, Linkedin, Send, Download, Terminal, CheckCircle2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,9 +11,46 @@ export default function Contact() {
   const [activeField, setActiveField] = useState<"name" | "email" | "message" | "submit">("name");
   const [isSubmitted, setIsSubmitted] = useState(false);
   
+  // Typewriter states for heading
+  const [typedHeader, setTypedHeader] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const fullHeader = "Let's Build Something Together";
+
   const nameInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const messageInputRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    let charIdx = isDeleting ? typedHeader.length : 0;
+    let timeout: NodeJS.Timeout;
+
+    const tick = () => {
+      const typingSpeed = 70;
+      const deleteSpeed = 130;
+
+      if (!isDeleting) {
+        if (charIdx < fullHeader.length) {
+          setTypedHeader(fullHeader.substring(0, charIdx + 1));
+          charIdx++;
+          timeout = setTimeout(tick, typingSpeed);
+        } else {
+          timeout = setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        if (charIdx > 0) {
+          setTypedHeader(fullHeader.substring(0, charIdx - 1));
+          charIdx--;
+          timeout = setTimeout(tick, deleteSpeed);
+        } else {
+          setIsDeleting(false);
+          timeout = setTimeout(tick, 500);
+        }
+      }
+    };
+
+    timeout = setTimeout(tick, 800);
+    return () => clearTimeout(timeout);
+  }, [isDeleting]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -44,15 +80,15 @@ export default function Contact() {
     const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
     
-    window.location.href = `mailto:nallamothubhanuteja110@gmail.com?subject=${subject}&body=${body}`;
-    
     setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setTimeout(() => {
+      window.location.href = `mailto:nallamothubhanuteja110@gmail.com?subject=${subject}&body=${body}`;
+      setIsSubmitted(false);
+    }, 1500);
   };
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
-       {/* Background glow */}
        <div className="hero-glow bottom-0 left-1/2 -translate-x-1/2 opacity-30" />
 
       <div className="container mx-auto px-6">
@@ -63,8 +99,10 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-                Let's <span className="gradient-text">Build Something</span> Together
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight min-h-[1.2em] font-mono">
+                {typedHeader.split("Together")[0]}
+                {typedHeader.includes("Together") && <span className="gradient-text">Together</span>}
+                <span className="w-[3px] h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />
               </h2>
               <p className="text-lg text-muted-foreground mb-12 max-w-md leading-relaxed">
                 Have a project in mind or just want to say hi? I'm always open to discussing new opportunities and creative collaborations.
@@ -112,7 +150,6 @@ export default function Contact() {
               </Button>
             </motion.div>
 
-            {/* CLI Contact Terminal */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -121,7 +158,6 @@ export default function Contact() {
               className="relative"
             >
               <div className="glass-card rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col h-[500px]">
-                {/* Terminal Header */}
                 <div className="bg-[#1e1e1e]/80 border-b border-white/5 px-4 py-2 flex items-center justify-between shrink-0">
                   <div className="flex gap-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
@@ -132,17 +168,13 @@ export default function Contact() {
                   <Terminal className="w-3 h-3 text-muted-foreground/30" />
                 </div>
 
-                {/* Terminal Body */}
                 <div 
                   className="p-8 font-mono text-sm md:text-base flex-1 overflow-y-auto custom-scrollbar cursor-text"
                   onClick={() => {
-                    if (!formData.name) nameInputRef.current?.focus();
-                    else if (!formData.email) emailInputRef.current?.focus();
-                    else messageInputRef.current?.focus();
+                    if (activeField === "name") nameInputRef.current?.focus();
                   }}
                 >
                   <div className="space-y-6">
-                    {/* Name Field */}
                     <div 
                       className={cn("group transition-opacity duration-300", activeField !== "name" && !formData.name ? "opacity-40" : "opacity-100")}
                       onClick={(e) => { e.stopPropagation(); nameInputRef.current?.focus(); }}
@@ -168,7 +200,6 @@ export default function Contact() {
                       </div>
                     </div>
 
-                    {/* Email Field */}
                     <div 
                       className={cn("group transition-opacity duration-300", activeField !== "email" && !formData.email ? "opacity-40" : "opacity-100")}
                       onClick={(e) => { e.stopPropagation(); emailInputRef.current?.focus(); }}
@@ -194,7 +225,6 @@ export default function Contact() {
                       </div>
                     </div>
 
-                    {/* Message Field */}
                     <div 
                       className={cn("group transition-opacity duration-300", activeField !== "message" && !formData.message ? "opacity-40" : "opacity-100")}
                       onClick={(e) => { e.stopPropagation(); messageInputRef.current?.focus(); }}
@@ -219,7 +249,6 @@ export default function Contact() {
                       </div>
                     </div>
 
-                    {/* Send Command */}
                     <AnimatePresence>
                       {(formData.name && formData.email && formData.message) && (
                         <motion.div 
@@ -245,7 +274,6 @@ export default function Contact() {
                       )}
                     </AnimatePresence>
 
-                    {/* Success Message */}
                     <AnimatePresence>
                       {isSubmitted && (
                         <motion.div
@@ -275,4 +303,3 @@ export default function Contact() {
     </section>
   );
 }
-

@@ -42,10 +42,10 @@ export default function Hero() {
     let timeout: NodeJS.Timeout;
 
     const tick = () => {
-      const typingSpeed = 100; // Slowed down from 70ms to 100ms for a more deliberate feel
+      const typingSpeed = 70;
+      const deleteSpeed = 130;
 
       if (!isDeleting) {
-        // TYPING PHASE
         if (lineIdx < fullLines.length) {
           if (charIdx < fullLines[lineIdx].length) {
             setTypedLines(prev => {
@@ -56,14 +56,12 @@ export default function Hero() {
             charIdx++;
             timeout = setTimeout(tick, typingSpeed);
           } else {
-            // End of current line
             if (lineIdx < fullLines.length - 1) {
               lineIdx++;
               charIdx = 0;
               setCurrentLine(lineIdx);
-              timeout = setTimeout(tick, 300); // Pause between lines
+              timeout = setTimeout(tick, 300);
             } else {
-              // End of all lines - pause for 2 seconds before deleting
               timeout = setTimeout(() => {
                 setIsDeleting(true);
               }, 2000);
@@ -71,7 +69,6 @@ export default function Hero() {
           }
         }
       } else {
-        // DELETING PHASE
         if (lineIdx >= 0) {
           if (charIdx > 0) {
             setTypedLines(prev => {
@@ -80,40 +77,35 @@ export default function Hero() {
               return next;
             });
             charIdx--;
-            timeout = setTimeout(tick, typingSpeed);
+            timeout = setTimeout(tick, deleteSpeed);
           } else {
-            // Line is empty, move to previous line
             if (lineIdx > 0) {
               lineIdx--;
               setCurrentLine(lineIdx);
               charIdx = fullLines[lineIdx].length;
-              timeout = setTimeout(tick, typingSpeed);
+              timeout = setTimeout(tick, deleteSpeed);
             } else {
-              // All lines empty - start typing again
               setIsDeleting(false);
               lineIdx = 0;
               charIdx = 0;
               setCurrentLine(0);
-              timeout = setTimeout(tick, 500); // Short pause before restart
+              timeout = setTimeout(tick, 500);
             }
           }
         }
       }
     };
 
-    // Initial delay for the first type-in
     timeout = setTimeout(tick, isDeleting ? 0 : 800);
-
     return () => clearTimeout(timeout);
   }, [isDeleting]);
 
   const EditorCursor = () => (
-    <span className="w-[3px] h-[0.9em] bg-primary inline-block ml-1 animate-editor-blink align-middle" />
+    <span className="w-[3px] h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />
   );
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden">
-      {/* Decorative background elements */}
       <div className="hero-glow top-1/4 -left-1/4" />
       <div className="hero-glow bottom-1/4 -right-1/4" style={{ background: "radial-gradient(circle, rgba(142, 68, 173, 0.15) 0%, rgba(72, 219, 251, 0.05) 100%)" }} />
       
@@ -121,7 +113,6 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             
-            {/* Left Column: Content */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -140,12 +131,10 @@ export default function Hero() {
               </motion.div>
               
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1] font-mono">
-                {/* Line 1 */}
                 <div className="min-h-[1.1em]">
                   {typedLines[0]}
                   {currentLine === 0 && <EditorCursor />}
                 </div>
-                {/* Line 2 */}
                 <div className="min-h-[1.1em]">
                   <span className="gradient-text">
                     {typedLines[1].includes('&') ? typedLines[1].split('&')[0] : typedLines[1]}
@@ -153,10 +142,9 @@ export default function Hero() {
                   {typedLines[1].includes('&') && ' &'}
                   {currentLine === 1 && <EditorCursor />}
                 </div>
-                {/* Line 3 */}
                 <div className="min-h-[1.1em]">
                   {typedLines[2]}
-                  {currentLine === 2 && <EditorCursor />}
+                  {(currentLine === 2 || (!isDeleting && typedLines[2] === fullLines[2])) && <EditorCursor />}
                 </div>
               </h1>
               
@@ -183,7 +171,6 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* Right Column: Localhost Browser Frame */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, x: 30 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -194,7 +181,6 @@ export default function Hero() {
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-[2rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
                 
                 <div className="relative glass-card rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
-                  {/* Browser Header */}
                   <div className="bg-[#1e1e1e]/90 border-b border-white/5 px-4 py-3 flex items-center gap-3">
                     <div className="flex gap-1.5 shrink-0">
                       <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
@@ -218,7 +204,6 @@ export default function Hero() {
                     <RotateCw className="w-3.5 h-3.5 text-muted-foreground/40 shrink-0" />
                   </div>
 
-                  {/* Browser Body: Image Content */}
                   <div className="relative aspect-[3/4] bg-[#0d1117]">
                     <Image 
                       src={portraitImg} 
@@ -226,12 +211,10 @@ export default function Hero() {
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                       priority
-                      data-ai-hint="professional portrait"
                     />
                     
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117]/60 via-transparent to-transparent pointer-events-none" />
                     
-                    {/* Interactive Label */}
                     <div className="absolute bottom-4 left-4 right-4 p-3 glass-card rounded-xl opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 border-white/10">
                       <div className="flex items-center justify-between">
                         <div>
