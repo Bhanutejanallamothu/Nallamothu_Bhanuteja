@@ -21,26 +21,28 @@ export default function Contact() {
   const messageInputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    const typingSpeed = 100;
-    const deleteSpeed = 50;
+    const typingSpeed = 150;
+    const deleteSpeed = 75;
     const pauseTime = 2000;
 
-    let timeout: NodeJS.Timeout;
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        if (typedHeader.length < fullHeader.length) {
+          setTypedHeader(fullHeader.slice(0, typedHeader.length + 1));
+        } else {
+          // Pause before deleting
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        if (typedHeader.length > 0) {
+          setTypedHeader(fullHeader.slice(0, typedHeader.length - 1));
+        } else {
+          setIsDeleting(false);
+        }
+      }
+    }, isDeleting ? deleteSpeed : typingSpeed);
 
-    if (!isDeleting && typedHeader === fullHeader) {
-      timeout = setTimeout(() => setIsDeleting(true), pauseTime);
-    } else if (isDeleting && typedHeader === "") {
-      timeout = setTimeout(() => setIsDeleting(false), 500);
-    } else {
-      timeout = setTimeout(() => {
-        setTypedHeader(prev => {
-          if (isDeleting) return prev.slice(0, -1);
-          return fullHeader.slice(0, prev.length + 1);
-        });
-      }, isDeleting ? deleteSpeed : typingSpeed);
-    }
-
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(timer);
   }, [typedHeader, isDeleting]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -91,8 +93,15 @@ export default function Contact() {
               viewport={{ once: true }}
             >
               <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight min-h-[1.2em] font-mono">
-                {typedHeader.split("Connect")[0]}
-                {typedHeader.includes("Connect") && <span className="gradient-text">Connect</span>}
+                {typedHeader.includes("Connect") ? (
+                  <>
+                    {typedHeader.split("Connect")[0]}
+                    <span className="gradient-text">Connect</span>
+                    {typedHeader.split("Connect")[1]}
+                  </>
+                ) : (
+                  typedHeader
+                )}
                 <span className="w-[3px] h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />
               </h2>
               <p className="text-lg text-muted-foreground mb-12 max-w-md leading-relaxed">

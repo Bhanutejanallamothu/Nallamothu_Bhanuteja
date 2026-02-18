@@ -164,7 +164,7 @@ export default function Hero() {
                     
                     <div className="hidden sm:flex gap-2 text-muted-foreground/40 shrink-0">
                       <ChevronLeft className="w-3.5 h-3.5" />
-                      <ChevronRight className="w-3.5 h-3.5" />
+                      <ChevronRight className="chevron-right w-3.5 h-3.5" />
                     </div>
                     
                     <div className="flex-1 bg-black/40 border border-white/5 rounded-md px-3 py-1 flex items-center gap-2 overflow-hidden">
