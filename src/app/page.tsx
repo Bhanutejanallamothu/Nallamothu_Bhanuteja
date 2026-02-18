@@ -82,35 +82,42 @@ const BackgroundWorkspace = () => {
         />
       </svg>
 
-      {/* 4. Cloud / Infra Layer (Floating Icons) */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* 4. Cloud / Infra Layer (Sharpened Floating Icons) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[15%] right-[20%] text-primary/10"
-        >
-          <Cloud size={120} />
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, 20, 0] }}
+          animate={{ y: [0, -25, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[20%] left-[10%] text-accent/10"
+          className="absolute top-[12%] right-[18%] text-primary/20 drop-shadow-[0_0_15px_rgba(72,219,251,0.3)] flex flex-col items-center"
         >
-          <Database size={100} />
+          <Cloud size={140} strokeWidth={1} />
+          <span className="font-mono text-[8px] text-primary/40 mt-2 uppercase tracking-widest">region: us-east-1</span>
         </motion.div>
+
         <motion.div
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[60%] right-[10%] text-green-500/10"
+          animate={{ y: [0, 25, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-[18%] left-[8%] text-accent/20 drop-shadow-[0_0_15px_rgba(142,68,173,0.3)] flex flex-col items-center"
         >
-          <Server size={80} />
+          <Database size={110} strokeWidth={1} />
+          <span className="font-mono text-[8px] text-accent/40 mt-2 uppercase tracking-widest">db: cluster-prod</span>
         </motion.div>
+
+        <motion.div
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[55%] right-[12%] text-green-500/20 drop-shadow-[0_0_15px_rgba(34,197,94,0.3)] flex flex-col items-center"
+        >
+          <Server size={90} strokeWidth={1} />
+          <span className="font-mono text-[8px] text-green-500/40 mt-2 uppercase tracking-widest">node: edge-runtime</span>
+        </motion.div>
+
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[40%] right-[30%] text-white/5"
+          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[35%] right-[28%] text-white/10 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] flex flex-col items-center"
         >
-          <Cpu size={60} />
+          <Cpu size={70} strokeWidth={1} />
+          <span className="font-mono text-[7px] text-white/30 mt-2 uppercase tracking-tighter">arch: arm64</span>
         </motion.div>
       </div>
 
