@@ -1,6 +1,12 @@
 {
   "placeholderImages": [
     {
+      "id": "portrait",
+      "description": "Bhanuteja Portrait",
+      "imageUrl": "https://ik.imagekit.io/bhanuteja110/WhatsApp%20Image%202026-02-11%20at%203.06.11%20PM.jpeg",
+      "imageHint": "professional portrait"
+    },
+    {
       "id": "kl-radio",
       "description": "KL Radio streaming platform interface",
       "imageUrl": "https://ik.imagekit.io/bhanuteja110/Radio/image.png",

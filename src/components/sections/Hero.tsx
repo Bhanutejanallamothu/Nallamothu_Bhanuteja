@@ -1,15 +1,16 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Download, Terminal, Globe, RotateCw, ChevronLeft, ChevronRight } from "lucide-react";
 import InteractiveButton from "@/components/ui/interactive-button";
 import Image from "next/image";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export default function Hero() {
   const [urlText, setUrlText] = useState("");
   const fullUrl = "http://localhost:8080/profile";
+  const portraitImg = PlaceHolderImages.find(img => img.id === "portrait")?.imageUrl || "https://picsum.photos/seed/bhanuteja/800/1000";
   
   useEffect(() => {
     let currentText = "";
@@ -69,7 +70,7 @@ export default function Hero() {
               <div className="flex flex-col sm:flex-row items-center gap-6">
                 <InteractiveButton 
                   variant="primary" 
-                  onClick={() => document.getElementById('projects')?.scrollIntoView()}
+                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Explore Work
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -128,7 +129,7 @@ export default function Hero() {
                   {/* Browser Body: Image Content */}
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#0d1117]">
                     <Image 
-                      src="https://picsum.photos/seed/bhanuteja/800/1000" 
+                      src={portraitImg} 
                       alt="Bhanuteja Portrait"
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
