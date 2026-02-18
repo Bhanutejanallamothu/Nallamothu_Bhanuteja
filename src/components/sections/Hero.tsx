@@ -11,7 +11,6 @@ export default function Hero() {
   const [urlText, setUrlText] = useState("");
   const [typedLines, setTypedLines] = useState(["", "", ""]);
   const [currentLine, setCurrentLine] = useState(0);
-  const [isFinished, setIsFinished] = useState(false);
   
   const fullUrl = "http://localhost:8080/profile";
   const fullLines = ["Engineering", "Clean Code &", "Experiences."];
@@ -43,7 +42,6 @@ export default function Hero() {
 
     const typeChar = () => {
       if (lineIdx < fullLines.length) {
-        setCurrentLine(lineIdx);
         if (charIdx < fullLines[lineIdx].length) {
           setTypedLines(prev => {
             const next = [...prev];
@@ -51,14 +49,17 @@ export default function Hero() {
             return next;
           });
           charIdx++;
-          timeouts.push(setTimeout(typeChar, 60));
+          timeouts.push(setTimeout(typeChar, 70));
         } else {
-          lineIdx++;
-          charIdx = 0;
-          if (lineIdx < fullLines.length) {
-            timeouts.push(setTimeout(typeChar, 300)); // Pause between lines
-          } else {
-            setIsFinished(true);
+          // Finish current line
+          if (lineIdx < fullLines.length - 1) {
+            // Pause before moving to next line
+            timeouts.push(setTimeout(() => {
+              lineIdx++;
+              charIdx = 0;
+              setCurrentLine(lineIdx);
+              typeChar();
+            }, 300));
           }
         }
       }
@@ -69,6 +70,10 @@ export default function Hero() {
 
     return () => timeouts.forEach(clearTimeout);
   }, []);
+
+  const EditorCursor = () => (
+    <span className="w-[3px] h-[0.9em] bg-primary inline-block ml-1 animate-editor-blink align-middle" />
+  );
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden">
@@ -102,9 +107,7 @@ export default function Hero() {
                 {/* Line 1 */}
                 <div className="min-h-[1.1em]">
                   {typedLines[0]}
-                  {currentLine === 0 && !isFinished && typedLines[0].length > 0 && (
-                    <span className="w-2 h-[0.8em] bg-primary inline-block ml-1 animate-pulse align-middle" />
-                  )}
+                  {currentLine === 0 && <EditorCursor />}
                 </div>
                 {/* Line 2 */}
                 <div className="min-h-[1.1em]">
@@ -112,16 +115,12 @@ export default function Hero() {
                     {typedLines[1].includes('&') ? typedLines[1].split('&')[0] : typedLines[1]}
                   </span>
                   {typedLines[1].includes('&') && ' &'}
-                  {currentLine === 1 && !isFinished && typedLines[1].length > 0 && (
-                    <span className="w-2 h-[0.8em] bg-primary inline-block ml-1 animate-pulse align-middle" />
-                  )}
+                  {currentLine === 1 && <EditorCursor />}
                 </div>
                 {/* Line 3 */}
                 <div className="min-h-[1.1em]">
                   {typedLines[2]}
-                  {(currentLine === 2 || isFinished) && typedLines[2].length > 0 && (
-                    <span className="w-2 h-[0.8em] bg-primary inline-block ml-1 animate-pulse align-middle" />
-                  )}
+                  {currentLine === 2 && <EditorCursor />}
                 </div>
               </h1>
               
