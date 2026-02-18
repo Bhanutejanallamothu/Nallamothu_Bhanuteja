@@ -1,47 +1,48 @@
+
 "use client";
 
 import React from "react";
 import { motion } from "framer-motion";
-import { GitBranch, GitCommit, Calendar, Building2, ChevronRight, Terminal } from "lucide-react";
+import { GitBranch, GitCommit, Calendar, Building2, ChevronRight, Terminal, Hash } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const experiences = [
   {
-    hash: "f7a2b8e",
+    branch: "kl-radio",
     role: "Technical Lead",
     company: "KL Radio",
     period: "Aug 2024 – Present",
     isCurrent: true,
-    highlights: [
-      "Led 15-member engineering and production team",
-      "Architected and deployed full-stack streaming platform",
-      "Delivered 50+ live broadcasts with 99% reliability",
-      "Managed platform for 500+ concurrent listeners",
-      "Streamlined production workflow by 25%",
+    commits: [
+      { hash: "a1b2c3d", type: "feat", message: "Led 15-member engineering and production team" },
+      { hash: "b2c3d4e", type: "arch", message: "Architected and deployed full-stack streaming platform" },
+      { hash: "c3d4e5f", type: "perf", message: "Delivered 50+ live broadcasts with 99% reliability" },
+      { hash: "d4e5f6g", type: "scale", message: "Managed platform for 500+ concurrent listeners" },
+      { hash: "e5f6g7h", type: "opt", message: "Streamlined production workflow by 25%" },
     ],
   },
   {
-    hash: "d4c1f9a",
+    branch: "swecha-intern",
     role: "Technology Intern",
     company: "Swecha",
     period: "Jun 2025 – Jul 2025",
     isCurrent: false,
-    highlights: [
-      "Improved Telugu NLP model accuracy by 10%",
-      "Increased frontend performance by 18% through code splitting and optimization",
-      "Collaborated on large-scale open source Telugu dataset preparation",
+    commits: [
+      { hash: "f6g7h8i", type: "ml", message: "Improved Telugu NLP model accuracy by 10%" },
+      { hash: "g7h8i9j", type: "perf", message: "Increased frontend performance by 18% through code splitting" },
+      { hash: "h8i9j0k", type: "data", message: "Collaborated on large-scale open source Telugu dataset" },
     ],
   },
 ];
 
-const GitNode = ({ isCurrent }: { isCurrent: boolean }) => (
-  <div className="relative flex items-center justify-center">
+const CommitNode = ({ isLast, isCurrent }: { isLast: boolean; isCurrent: boolean }) => (
+  <div className="flex flex-col items-center group/node">
     <div className={cn(
-      "w-4 h-4 rounded-full border-2 z-10 bg-background transition-all duration-300",
-      isCurrent ? "border-primary shadow-[0_0_10px_rgba(72,219,251,0.8)]" : "border-muted-foreground/40"
+      "w-3 h-3 rounded-full border-2 bg-background z-10 transition-all duration-300",
+      isCurrent ? "border-primary shadow-[0_0_8px_rgba(72,219,251,0.6)]" : "border-muted-foreground/30 group-hover/node:border-primary/50"
     )} />
-    {isCurrent && (
-      <div className="absolute w-4 h-4 rounded-full bg-primary animate-ping opacity-20" />
+    {!isLast && (
+      <div className="w-px h-full bg-muted-foreground/20 border-l border-dashed group-hover/node:border-primary/20 transition-colors" />
     )}
   </div>
 );
@@ -50,7 +51,7 @@ export default function Experience() {
   return (
     <section id="experience" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto mb-16">
+        <div className="max-w-5xl mx-auto mb-20">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -61,7 +62,7 @@ export default function Experience() {
               <GitBranch className="w-5 h-5 text-primary" />
             </div>
             <div className="font-mono text-sm text-muted-foreground">
-              <span className="text-primary">$</span> git log --career --graph
+              <span className="text-primary">$</span> git log --career --graph --all
             </div>
           </motion.div>
           
@@ -71,99 +72,133 @@ export default function Experience() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold tracking-tight"
           >
-            Professional <span className="gradient-text">Journey</span>
+            Engineering <span className="gradient-text">History</span>
           </motion.h2>
         </div>
 
-        <div className="max-w-4xl mx-auto relative">
-          {/* Vertical Branch Line */}
-          <div className="absolute left-[7px] md:left-[119px] top-2 bottom-0 w-px border-l border-dashed border-muted-foreground/20" />
-          
-          <div className="space-y-12">
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={exp.hash}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group relative grid grid-cols-1 md:grid-cols-[120px_1fr] gap-8"
-              >
-                {/* Hash & Date Column (Desktop) */}
-                <div className="hidden md:flex flex-col items-end pt-1">
-                  <span className="font-mono text-xs text-primary/60 font-bold mb-1 group-hover:text-primary transition-colors">
-                    commit {exp.hash}
-                  </span>
-                  <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">
-                    {exp.period.split(' – ')[0]}
-                  </span>
-                </div>
-
-                {/* Git Node & Content */}
-                <div className="flex gap-6 md:gap-8">
-                  <div className="relative pt-1.5 shrink-0">
-                    <GitNode isCurrent={exp.isCurrent} />
+        <div className="max-w-5xl mx-auto space-y-24">
+          {experiences.map((exp, expIdx) => (
+            <motion.div
+              key={exp.branch}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: expIdx * 0.1 }}
+              className="relative"
+            >
+              {/* Branch Label & Role Header */}
+              <div className="flex flex-col md:flex-row md:items-end gap-4 mb-12">
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                      {exp.role}
+                    </h3>
+                    {exp.isCurrent && (
+                      <span className="px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-[10px] font-bold text-primary uppercase tracking-tighter animate-pulse">
+                        HEAD
+                      </span>
+                    )}
                   </div>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground font-medium">
+                    <span className="flex items-center gap-1.5">
+                      <Building2 className="w-4 h-4 text-primary/60" />
+                      {exp.company}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-4 h-4 text-primary/60" />
+                      {exp.period}
+                    </span>
+                  </div>
+                </div>
+                <div className="md:ml-auto">
+                  <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-xs text-primary/70">
+                    branch: <span className="text-foreground">{exp.branch}</span>
+                  </div>
+                </div>
+              </div>
 
-                  <div className="flex-1 pb-4">
-                    <div className="glass-card rounded-2xl p-6 md:p-8 border-white/5 group-hover:border-primary/30 transition-all duration-500">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                        <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-xl md:text-2xl font-bold group-hover:text-primary transition-colors">
-                              {exp.role}
-                            </h3>
-                            {exp.isCurrent && (
-                              <span className="px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-[10px] font-bold text-primary uppercase tracking-tighter">
-                                HEAD
+              {/* Commit History for this Branch */}
+              <div className="space-y-0">
+                {exp.commits.map((commit, commitIdx) => (
+                  <div key={commit.hash} className="flex gap-6 group/commit">
+                    <div className="pt-1.5 flex flex-col items-center">
+                      <CommitNode 
+                        isLast={commitIdx === exp.commits.length - 1} 
+                        isCurrent={exp.isCurrent && commitIdx === 0} 
+                      />
+                    </div>
+                    
+                    <div className="flex-1 pb-8">
+                      <motion.div
+                        whileHover={{ x: 8 }}
+                        className="glass-card rounded-xl p-4 md:p-5 border-white/5 hover:border-primary/30 transition-all duration-300"
+                      >
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                          <div className="flex items-start gap-3">
+                            <div className="shrink-0 mt-1">
+                              <span className={cn(
+                                "text-[10px] font-bold px-1.5 py-0.5 rounded border uppercase tracking-tighter",
+                                commit.type === 'feat' && "bg-blue-500/10 border-blue-500/20 text-blue-400",
+                                commit.type === 'arch' && "bg-purple-500/10 border-purple-500/20 text-purple-400",
+                                commit.type === 'perf' && "bg-green-500/10 border-green-500/20 text-green-400",
+                                commit.type === 'scale' && "bg-orange-500/10 border-orange-500/20 text-orange-400",
+                                commit.type === 'opt' && "bg-cyan-500/10 border-cyan-500/20 text-cyan-400",
+                                commit.type === 'ml' && "bg-yellow-500/10 border-yellow-500/20 text-yellow-400",
+                                commit.type === 'data' && "bg-indigo-500/10 border-indigo-500/20 text-indigo-400"
+                              )}>
+                                {commit.type}
                               </span>
-                            )}
+                            </div>
+                            <p className="text-sm md:text-base text-muted-foreground group-hover/commit:text-foreground transition-colors leading-relaxed">
+                              {commit.message}
+                            </p>
                           </div>
                           
-                          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground font-medium">
-                            <span className="flex items-center gap-1.5">
-                              <Building2 className="w-4 h-4 text-primary/60" />
-                              {exp.company}
-                            </span>
-                            <span className="flex items-center gap-1.5">
-                              <Calendar className="w-4 h-4 text-primary/60" />
-                              {exp.period}
-                            </span>
+                          <div className="flex items-center gap-2 font-mono text-[10px] text-muted-foreground/40 shrink-0">
+                            <Hash className="w-3 h-3" />
+                            {commit.hash}
                           </div>
                         </div>
-                        
-                        <div className="md:hidden font-mono text-[10px] text-primary/40 uppercase font-bold">
-                          commit: {exp.hash}
-                        </div>
-                      </div>
-
-                      <ul className="space-y-3">
-                        {exp.highlights.map((point, i) => (
-                          <li key={i} className="flex items-start gap-3 text-muted-foreground group/item">
-                            <ChevronRight className="w-4 h-4 mt-1 text-primary/40 group-hover/item:text-primary transition-colors shrink-0" />
-                            <span className="text-sm md:text-base leading-relaxed group-hover/item:text-foreground transition-colors">
-                              {point}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      {/* Diff View Indicator */}
-                      <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                        <div className="flex gap-3 font-mono text-[10px] text-muted-foreground/60 uppercase tracking-tighter">
-                          <span>files changed: 12</span>
-                          <span className="text-green-500/60">insertions: 48(+)</span>
-                          <span className="text-red-500/60">deletions: 12(-)</span>
-                        </div>
-                        <Terminal className="w-3.5 h-3.5 text-primary/30" />
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                ))}
+              </div>
+
+              {/* Branch Merge Indicator */}
+              {expIdx < experiences.length - 1 && (
+                <div className="absolute -bottom-16 left-[5.5px] w-px h-16 border-l border-dashed border-muted-foreground/20" />
+              )}
+            </motion.div>
+          ))}
         </div>
+
+        {/* Career Summary Terminal */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-5xl mx-auto mt-20 p-6 glass-card rounded-2xl bg-[#0d1117]/80 border-white/5"
+        >
+          <div className="flex items-center gap-2 mb-4 border-b border-white/5 pb-2">
+            <Terminal className="w-4 h-4 text-green-400" />
+            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">career_analytics.sh</span>
+          </div>
+          <div className="font-mono text-xs md:text-sm space-y-2">
+            <div className="flex gap-4">
+              <span className="text-muted-foreground/50">Total Commits:</span>
+              <span className="text-primary">248 active development cycles</span>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-muted-foreground/50">Impact Score:</span>
+              <span className="text-green-400">99.9% deployment reliability</span>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-muted-foreground/50">Tech Focus:</span>
+              <span className="text-sky-400">Full-Stack Architecture & UI/UX Engineering</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
