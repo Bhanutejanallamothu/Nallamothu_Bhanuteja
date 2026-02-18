@@ -4,33 +4,11 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 191 97% 63%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 262 52% 47%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 191 97% 63%;
-    --radius: 0.75rem;
-  }
-  .dark {
-    --background: 240 10% 4%;
+    --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 6%;
+    --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 6%;
+    --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 191 97% 63%;
     --primary-foreground: 240 10% 3.9%;
@@ -45,6 +23,7 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 191 97% 63%;
+    --radius: 0.75rem;
   }
 }
 
@@ -66,22 +45,24 @@
   @apply bg-card/40 backdrop-blur-xl border border-white/10 shadow-2xl;
 }
 
-/* IDE Workspace Background Styles */
+/* --- IDE Workspace Background System --- */
+
 .ide-workspace-bg {
   position: fixed;
   inset: 0;
   z-index: -50;
   overflow: hidden;
-  background-color: hsl(var(--background));
+  background-color: #0b0f19;
 }
 
+/* Layer 0: Mesh Gradients */
 .ide-mesh-gradient {
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 0% 0%, rgba(72, 219, 251, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 100% 100%, rgba(142, 68, 173, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(72, 219, 251, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 0% 0%, rgba(72, 219, 251, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(142, 68, 173, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(72, 219, 251, 0.03) 0%, transparent 50%);
   filter: blur(80px);
 }
 
@@ -91,63 +72,48 @@
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 90%);
 }
 
-.ide-panels {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+/* Animations */
+@keyframes scroll-code {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
 }
 
-/* Sidebar Division */
-.ide-panels::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 64px;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05), transparent);
+@keyframes drift-logs {
+  0% { transform: translateY(100px); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-300px); opacity: 0; }
 }
 
-/* Activity Bar Division */
-.ide-panels::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 300px;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05), transparent);
-  opacity: 0.5;
+@keyframes pulse-line {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
 }
 
-.code-lines-pattern {
-  position: absolute;
-  right: 5%;
-  top: 10%;
-  width: 300px;
-  height: 400px;
-  background-image: repeating-linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0.03) 0px,
-    rgba(255, 255, 255, 0.03) 2px,
-    transparent 2px,
-    transparent 20px
-  );
-  transform: skewY(-5deg);
-  opacity: 0.4;
+@keyframes breathe {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(1.05); }
 }
 
-@keyframes editor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+.animate-scroll-code {
+  animation: scroll-code 60s linear infinite;
 }
 
-.animate-editor-blink {
-  animation: editor-blink 1s step-end infinite;
+.animate-drift-logs {
+  animation: drift-logs 20s linear infinite;
+}
+
+.animate-pulse-line {
+  stroke-dasharray: 100;
+  animation: pulse-line 30s linear infinite;
+}
+
+.animate-breathe {
+  animation: breathe 8s ease-in-out infinite;
 }
 
 html {
