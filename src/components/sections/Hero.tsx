@@ -90,62 +90,65 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.95, x: 30 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="relative group"
+              className="relative group flex justify-center lg:justify-end"
             >
-              {/* Outer Shadow Glow */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-[2.5rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-              
-              <div className="relative glass-card rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
-                {/* Browser Header */}
-                <div className="bg-[#1e1e1e]/90 border-b border-white/5 px-6 py-4 flex items-center gap-4">
-                  {/* Window Controls */}
-                  <div className="flex gap-2 shrink-0">
-                    <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                    <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                    <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                  </div>
-                  
-                  {/* Navigation Icons */}
-                  <div className="hidden sm:flex gap-4 text-muted-foreground/40 shrink-0">
-                    <ChevronLeft className="w-4 h-4" />
-                    <ChevronRight className="w-4 h-4" />
-                  </div>
-                  
-                  {/* URL Bar */}
-                  <div className="flex-1 bg-black/40 border border-white/5 rounded-full px-4 py-1.5 flex items-center gap-2 overflow-hidden">
-                    <Globe className="w-3.5 h-3.5 text-muted-foreground/40 shrink-0" />
-                    <div className="text-[13px] font-mono text-muted-foreground/80 truncate">
-                      {urlText}
-                      <span className="w-1.5 h-4 bg-primary inline-block ml-0.5 animate-pulse align-middle" />
+              {/* Sizing wrapper to keep the browser frame proportional to text content */}
+              <div className="relative w-full max-w-[480px]">
+                {/* Outer Shadow Glow */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-[2rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
+                
+                <div className="relative glass-card rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
+                  {/* Browser Header */}
+                  <div className="bg-[#1e1e1e]/90 border-b border-white/5 px-4 py-3 flex items-center gap-3">
+                    {/* Window Controls */}
+                    <div className="flex gap-1.5 shrink-0">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
                     </div>
-                  </div>
-                  
-                  <RotateCw className="w-4 h-4 text-muted-foreground/40 shrink-0" />
-                </div>
-
-                {/* Browser Body: Image Content */}
-                <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-[#0d1117]">
-                  <Image 
-                    src="https://picsum.photos/seed/bhanuteja/800/1000" 
-                    alt="Bhanuteja Portrait"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    priority
-                    data-ai-hint="professional portrait"
-                  />
-                  {/* Gradient Overlay for depth */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent opacity-40" />
-                  
-                  {/* Interactive Label (Hidden until hover) */}
-                  <div className="absolute bottom-6 left-6 right-6 p-4 glass-card rounded-2xl opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 border-white/10">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">Status</p>
-                        <p className="text-sm font-mono text-white">server_running: true</p>
+                    
+                    {/* Navigation Icons */}
+                    <div className="hidden sm:flex gap-2 text-muted-foreground/40 shrink-0">
+                      <ChevronLeft className="w-3.5 h-3.5" />
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </div>
+                    
+                    {/* URL Bar */}
+                    <div className="flex-1 bg-black/40 border border-white/5 rounded-md px-3 py-1 flex items-center gap-2 overflow-hidden">
+                      <Globe className="w-3 h-3 text-muted-foreground/40 shrink-0" />
+                      <div className="text-[11px] font-mono text-muted-foreground/80 truncate">
+                        {urlText}
+                        <span className="w-1 h-3.5 bg-primary inline-block ml-0.5 animate-pulse align-middle" />
                       </div>
-                      <div className="flex items-center gap-1.5 text-[10px] font-mono text-muted-foreground">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                        8080
+                    </div>
+                    
+                    <RotateCw className="w-3.5 h-3.5 text-muted-foreground/40 shrink-0" />
+                  </div>
+
+                  {/* Browser Body: Image Content */}
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[#0d1117]">
+                    <Image 
+                      src="https://picsum.photos/seed/bhanuteja/800/1000" 
+                      alt="Bhanuteja Portrait"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      priority
+                      data-ai-hint="professional portrait"
+                    />
+                    {/* Gradient Overlay for depth */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent opacity-40" />
+                    
+                    {/* Interactive Label (Hidden until hover) */}
+                    <div className="absolute bottom-4 left-4 right-4 p-3 glass-card rounded-xl opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 border-white/10">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-[9px] font-bold uppercase tracking-widest text-primary mb-0.5">Status</p>
+                          <p className="text-xs font-mono text-white">server_running: true</p>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-[9px] font-mono text-muted-foreground">
+                          <span className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
+                          8080
+                        </div>
                       </div>
                     </div>
                   </div>
