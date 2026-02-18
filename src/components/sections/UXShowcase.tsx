@@ -9,7 +9,6 @@ import {
   Smartphone,
   Paintbrush,
   CheckCircle2,
-  Activity,
   Server,
   Globe,
   Activity as ActivityIcon,
@@ -84,22 +83,25 @@ export default function UXShowcase() {
 
   useEffect(() => {
     const initialLogs = [
-      "[INFO] Deployment: Stable",
-      "[INFO] Initializing production pipeline...",
-      "[INFO] Image optimization: Complete",
-      "[SUCCESS] Core Web Vitals audit passed",
+      "[INFO] System initialized. Ready for project deployment.",
+      "[SUCCESS] KL Radio: Stream server online at klradio.in",
+      "[INFO] VIP: Internship matching algorithm initialized",
+      "[SUCCESS] HMS: Real-time patient data sync active",
+      "[INFO] YBS: SEO indexing refreshed across 48 pages",
     ];
     setLogs(initialLogs);
 
     const interval = setInterval(() => {
-      const newLogs = [
-        `[INFO] Pipeline: Stage Build - Optimized (${Math.floor(Math.random() * 50)}ms)`,
-        `[INFO] Production Status: Operational`,
-        `[INFO] Layout validated across 12 viewports`,
-        `[INFO] Edge CDN synchronization: Active`,
+      const dynamicLogs = [
+        `[INFO] KL Radio: Buffered 12.4MB of audio for 500+ listeners`,
+        `[INFO] VIP: Processing 12 new internship applications...`,
+        `[INFO] HMS: Automated health record backup completed`,
+        `[INFO] YBS: Production build optimized (Next.js Static Gen)`,
+        `[INFO] Pipeline: Stage Deliver - Assets deployed to Edge`,
+        `[SUCCESS] Production cluster health: 100%`,
       ];
-      setLogs(prev => [...prev.slice(-5), newLogs[Math.floor(Math.random() * newLogs.length)]]);
-    }, 3000);
+      setLogs(prev => [...prev.slice(-7), dynamicLogs[Math.floor(Math.random() * dynamicLogs.length)]]);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -197,7 +199,7 @@ export default function UXShowcase() {
           {/* Metrics & Terminal Dashboard */}
           <div className="grid grid-cols-1 gap-6">
             
-            {/* SRE Terminal Console (Expanded to full width) */}
+            {/* SRE Terminal Console (Full width) */}
             <div className="glass-card rounded-xl overflow-hidden flex flex-col h-[320px] bg-black/60 border-white/5">
               <div className="bg-[#1a1a1a] px-4 py-2 border-b border-white/5 flex items-center justify-between">
                 <div className="flex items-center gap-2">
