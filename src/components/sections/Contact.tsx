@@ -9,9 +9,17 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 export default function Contact() {
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Logic for form submission
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+    
+    window.location.href = `mailto:nallamothubhanuteja110@gmail.com?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -87,16 +95,16 @@ export default function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Name</label>
-                    <Input placeholder="John Doe" className="bg-background border-border rounded-xl h-12" required />
+                    <Input name="name" placeholder="John Doe" className="bg-background border-border rounded-xl h-12" required />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Email</label>
-                    <Input type="email" placeholder="john@example.com" className="bg-background border-border rounded-xl h-12" required />
+                    <Input name="email" type="email" placeholder="john@example.com" className="bg-background border-border rounded-xl h-12" required />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Message</label>
-                  <Textarea placeholder="Hi, let's talk about..." className="bg-background border-border rounded-xl min-h-[150px] resize-none" required />
+                  <Textarea name="message" placeholder="Hi, let's talk about..." className="bg-background border-border rounded-xl min-h-[150px] resize-none" required />
                 </div>
                 <Button type="submit" size="lg" className="w-full rounded-xl h-14 gap-2 text-base font-bold group">
                   Send Message
