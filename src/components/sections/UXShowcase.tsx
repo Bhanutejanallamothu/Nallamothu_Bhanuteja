@@ -4,16 +4,17 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Server, 
-  Database, 
-  Globe, 
-  MousePointer2, 
-  Activity, 
-  Cpu, 
-  Terminal as TerminalIcon,
-  CheckCircle2,
-  AlertCircle,
+  Box,
   Zap,
+  Smartphone,
+  Paintbrush,
+  CheckCircle2,
+  Activity,
+  Server,
+  Globe,
+  MousePointer2,
+  Terminal as TerminalIcon,
+  Search,
   Layout,
   Network
 } from "lucide-react";
@@ -31,52 +32,52 @@ const generateData = () => Array.from({ length: 20 }, (_, i) => ({
 
 const serviceNodes = [
   {
-    id: "client",
-    icon: MousePointer2,
-    label: "Frontend Cluster",
-    status: "Healthy",
-    build: "#8291",
-    latency: "12ms",
+    id: "build",
+    icon: Box,
+    label: "Micro-interactions",
+    sublabel: "Stage: Build",
+    status: "Verified",
+    description: "Component-level polish with Framer Motion and state-driven animations.",
     color: "text-blue-400",
     glow: "shadow-[0_0_15px_rgba(96,165,250,0.3)]",
   },
   {
-    id: "api",
-    icon: Server,
-    label: "API Gateway",
-    status: "Active",
-    build: "#7412",
-    latency: "45ms",
+    id: "optimize",
+    icon: Zap,
+    label: "High Performance",
+    sublabel: "Stage: Optimize",
+    status: "Verified",
+    description: "Image optimization, code splitting, and lazy loading for instant feedback.",
     color: "text-yellow-400",
     glow: "shadow-[0_0_15px_rgba(250,204,21,0.3)]",
   },
   {
-    id: "db",
-    icon: Database,
-    label: "Postgres Pool",
-    status: "Stable",
-    build: "#2938",
-    latency: "8ms",
+    id: "test",
+    icon: Smartphone,
+    label: "Responsive First",
+    sublabel: "Stage: Test",
+    status: "Verified",
+    description: "Cross-browser validation and fluid layout testing across all device breakpoints.",
     color: "text-purple-400",
     glow: "shadow-[0_0_15px_rgba(192,132,252,0.3)]",
   },
   {
-    id: "edge",
-    icon: Globe,
-    label: "Edge Network",
-    status: "Optimized",
-    build: "#5521",
-    latency: "2ms",
+    id: "deliver",
+    icon: Paintbrush,
+    label: "Modern UI",
+    sublabel: "Stage: Deliver",
+    status: "Verified",
+    description: "Implementation of comprehensive design systems and visual aesthetics.",
     color: "text-green-400",
     glow: "shadow-[0_0_15px_rgba(74,222,128,0.3)]",
   },
 ];
 
 const metrics = [
-  { label: "System Uptime", value: "99.99%", trend: "stable", sub: "Last 30 days" },
-  { label: "Request Latency", value: "32ms", trend: "down", sub: "P95 Avg" },
-  { label: "Error Rate", value: "0.01%", trend: "stable", sub: "Production" },
-  { label: "Lighthouse Score", value: "98/100", trend: "up", sub: "Core Vitals" },
+  { label: "Lighthouse", value: "95+", trend: "Performance", sub: "P95 Avg" },
+  { label: "Load Time", value: "<2s", trend: "Speed Index", sub: "Global Average" },
+  { label: "Uptime", value: "99.9%", trend: "Reliability", sub: "SLA Guaranteed" },
+  { label: "Core Web", value: "Pass", trend: "Vitals", sub: "Certified" },
 ];
 
 export default function UXShowcase() {
@@ -86,19 +87,19 @@ export default function UXShowcase() {
 
   useEffect(() => {
     const initialLogs = [
-      "[INFO] Pulling image: portfolio-ui:latest",
-      "[INFO] Resolving dependencies...",
-      "[INFO] Health check passed on port 3000",
-      "[SUCCESS] Deployment rolled out to production",
+      "[INFO] Deployment: Stable",
+      "[INFO] Initializing production pipeline...",
+      "[INFO] Image optimization: Complete",
+      "[SUCCESS] Core Web Vitals audit passed",
     ];
     setLogs(initialLogs);
 
     const interval = setInterval(() => {
       const newLogs = [
-        `[INFO] GET /api/v1/metrics - 200 OK (${Math.floor(Math.random() * 50)}ms)`,
-        `[INFO] Health check heartbeat: STABLE`,
-        `[INFO] Cache hit for key: user_session_hash`,
-        `[INFO] Traffic spike detected: Auto-scaling active`,
+        `[INFO] Pipeline: Stage Build - Optimized (${Math.floor(Math.random() * 50)}ms)`,
+        `[INFO] Production Status: Operational`,
+        `[INFO] Layout validated across 12 viewports`,
+        `[INFO] Edge CDN synchronization: Active`,
       ];
       setLogs(prev => [...prev.slice(-5), newLogs[Math.floor(Math.random() * newLogs.length)]]);
     }, 3000);
@@ -125,7 +126,7 @@ export default function UXShowcase() {
                 className="flex items-center gap-2 px-3 py-1 rounded border border-green-500/20 bg-green-500/5 text-green-400 text-[10px] font-mono font-bold uppercase tracking-widest mb-4 w-fit"
               >
                 <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                Cluster Status: Operational
+                Production Status: Operational
               </motion.div>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -133,18 +134,18 @@ export default function UXShowcase() {
                 viewport={{ once: true }}
                 className="text-4xl md:text-5xl font-bold tracking-tight mb-2"
               >
-                System <span className="gradient-text">Observability</span>
+                Delivery <span className="gradient-text">Pipeline</span>
               </motion.h2>
-              <p className="text-muted-foreground font-mono text-xs">Runtime performance and service architecture monitor.</p>
+              <p className="text-muted-foreground font-mono text-xs">High-fidelity delivery workflow and production metrics monitor.</p>
             </div>
             
             <div className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-lg px-4 py-2 font-mono text-[10px] text-muted-foreground">
               <Activity className="w-3 h-3 text-primary" />
-              <span>Real-time Traffic: 1.2k req/min</span>
+              <span>Pipeline Status: 99.9% Reliable</span>
             </div>
           </div>
 
-          {/* Service Pipeline */}
+          {/* Service Pipeline (Stages) */}
           <div className="relative mb-12">
             <div className="absolute top-1/2 left-0 w-full h-px border-t border-dashed border-white/10 -translate-y-1/2 hidden lg:block" />
             
@@ -166,32 +167,30 @@ export default function UXShowcase() {
                   onMouseEnter={() => setActiveNode(node.id)}
                   onMouseLeave={() => setActiveNode(null)}
                   className={cn(
-                    "glass-card p-6 rounded-xl border-white/5 hover:border-primary/40 transition-all duration-300 relative group",
+                    "glass-card p-6 rounded-xl border-white/5 hover:border-primary/40 transition-all duration-300 relative group flex flex-col min-h-[280px]",
                     activeNode === node.id && node.glow
                   )}
                 >
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center justify-between mb-4">
                     <div className={cn(
-                      "p-2 rounded-lg bg-white/5 transition-colors duration-300",
+                      "p-3 rounded-xl bg-white/5 transition-colors duration-300",
                       activeNode === node.id && "bg-primary/20"
                     )}>
-                      <node.icon className={cn("w-5 h-5", node.color)} />
+                      <node.icon className={cn("w-6 h-6", node.color)} />
                     </div>
                     <div className="flex flex-col items-end">
-                      <span className="text-[9px] font-mono text-muted-foreground/40 uppercase">Build</span>
-                      <span className="text-[10px] font-mono font-bold text-foreground">{node.build}</span>
+                      <span className="text-[9px] font-mono text-muted-foreground/40 uppercase tracking-widest">{node.sublabel}</span>
                     </div>
                   </div>
 
-                  <h3 className="text-sm font-bold mb-1 tracking-tight text-foreground">{node.label}</h3>
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.5)]" />
-                    <span className="text-[10px] font-mono text-muted-foreground uppercase">{node.status}</span>
-                  </div>
+                  <h3 className="text-lg font-bold mb-2 tracking-tight text-foreground">{node.label}</h3>
+                  <p className="text-xs text-muted-foreground/80 leading-relaxed mb-auto">
+                    {node.description}
+                  </p>
 
-                  <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                    <span className="text-[9px] font-mono text-muted-foreground/40 uppercase">Latency</span>
-                    <span className={cn("text-xs font-mono font-bold", node.color)}>{node.latency}</span>
+                  <div className="pt-4 border-t border-white/5 flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
+                    <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">{node.status}</span>
                   </div>
                 </motion.div>
               ))}
@@ -206,7 +205,7 @@ export default function UXShowcase() {
               <div className="bg-[#1a1a1a] px-4 py-2 border-b border-white/5 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <TerminalIcon className="w-3.5 h-3.5 text-green-400" />
-                  <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Deployment Logs</span>
+                  <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Production Logs</span>
                 </div>
                 <div className="flex gap-1">
                   <div className="w-2 h-2 rounded-full bg-white/5" />
@@ -241,56 +240,36 @@ export default function UXShowcase() {
               </div>
             </div>
 
-            {/* Pod Health Grid & Quick Metrics */}
+            {/* Production Status Block */}
             <div className="flex flex-col gap-6">
-              
-              {/* Cluster Pod Grid */}
-              <div className="glass-card p-6 rounded-xl border-white/5 flex flex-col flex-1">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Cluster Pods</span>
-                  <span className="text-[10px] font-mono text-green-400">16/16 Up</span>
+              <div className="glass-card p-8 rounded-xl border-white/5 flex flex-col flex-1 bg-gradient-to-br from-green-500/5 to-transparent">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 rounded-full bg-green-500/20 border border-green-500/20">
+                    <Globe className="w-5 h-5 text-green-400" />
+                  </div>
+                  <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Production Status</span>
                 </div>
-                <div className="grid grid-cols-4 gap-3 flex-1">
+                
+                <h3 className="text-2xl font-bold text-foreground mb-4">Deployment: <span className="text-green-400">Stable</span></h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Every project is delivered through a rigorous pipeline that ensures high-fidelity results and optimal user experience metrics.
+                </p>
+                
+                <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-4 gap-2">
                   {Array.from({ length: 16 }).map((_, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.05 }}
                       animate={{ 
-                        scale: [1, 1.05, 1],
-                        backgroundColor: i === 7 ? ["#22c55e", "#16a34a", "#22c55e"] : "#22c55e"
+                        opacity: [0.3, 0.8, 0.3],
                       }}
-                      transition={{ repeat: Infinity, duration: 3, delay: i * 0.2 }}
-                      className="aspect-square rounded-[2px] bg-green-500/80 shadow-[0_0_8px_rgba(34,197,94,0.2)]"
+                      transition={{ 
+                        repeat: Infinity, 
+                        duration: 3, 
+                        delay: i * 0.2 
+                      }}
+                      className="aspect-square rounded-[2px] bg-green-500/80"
                     />
                   ))}
-                </div>
-                <div className="mt-4 pt-4 border-t border-white/5">
-                  <p className="text-[9px] font-mono text-muted-foreground/60 leading-tight">
-                    Region: us-east-1 <br />
-                    Orchestration: Kubernetes v1.28
-                  </p>
-                </div>
-              </div>
-
-              {/* Uptime Badge */}
-              <div className="glass-card p-6 rounded-xl border-white/5 bg-gradient-to-br from-primary/5 to-transparent">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-1.5 rounded-full bg-primary/20">
-                    <Zap className="w-3.5 h-3.5 text-primary" />
-                  </div>
-                  <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Perf Index</span>
-                </div>
-                <div className="text-2xl font-bold text-foreground">A+ <span className="text-xs font-normal text-muted-foreground">Certified</span></div>
-                <div className="mt-2 w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "98%" }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                    className="h-full bg-primary" 
-                  />
                 </div>
               </div>
             </div>
@@ -308,7 +287,7 @@ export default function UXShowcase() {
                 className="glass-card p-5 rounded-xl border-white/5 hover:bg-white/5 transition-colors group"
               >
                 <div className="text-[10px] font-mono text-muted-foreground/60 uppercase tracking-tighter mb-1">{metric.label}</div>
-                <div className="text-lg font-bold text-foreground mb-3">{metric.value}</div>
+                <div className="text-2xl font-bold text-foreground mb-3">{metric.value}</div>
                 
                 <div className="h-8 w-full opacity-30 group-hover:opacity-60 transition-opacity">
                   <ResponsiveContainer width="100%" height="100%">
@@ -326,10 +305,7 @@ export default function UXShowcase() {
                 
                 <div className="flex items-center gap-1.5 mt-2">
                   <span className={cn(
-                    "text-[8px] font-bold px-1 rounded uppercase",
-                    metric.trend === 'up' ? "bg-green-500/20 text-green-400" : 
-                    metric.trend === 'down' ? "bg-primary/20 text-primary" : 
-                    "bg-white/10 text-muted-foreground"
+                    "text-[8px] font-bold px-1 rounded uppercase bg-primary/20 text-primary"
                   )}>
                     {metric.trend}
                   </span>
@@ -337,6 +313,21 @@ export default function UXShowcase() {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Infrastructure Footer */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-muted-foreground/40 font-mono text-[10px] uppercase tracking-[0.2em]">
+            <div className="flex items-center gap-2">
+              <Server className="w-3.5 h-3.5" /> Edge CDN
+            </div>
+            <div className="text-primary/20">→</div>
+            <div className="flex items-center gap-2">
+              <Globe className="w-3.5 h-3.5" /> Cloud Hosting
+            </div>
+            <div className="text-primary/20">→</div>
+            <div className="flex items-center gap-2">
+              <Activity className="w-3.5 h-3.5" /> End User Browser
+            </div>
           </div>
 
         </div>
