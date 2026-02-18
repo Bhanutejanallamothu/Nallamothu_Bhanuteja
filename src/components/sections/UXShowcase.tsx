@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -107,7 +106,7 @@ export default function UXShowcase() {
   }, []);
 
   return (
-    <section className="py-24 relative overflow-hidden bg-[#0a0a0a]">
+    <section className="py-24 relative overflow-hidden bg-transparent">
       {/* Background patterns */}
       <div className="absolute inset-0 ide-grid opacity-10 pointer-events-none" />
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
@@ -200,8 +199,8 @@ export default function UXShowcase() {
           <div className="grid grid-cols-1 gap-6">
             
             {/* SRE Terminal Console (Full width) */}
-            <div className="glass-card rounded-xl overflow-hidden flex flex-col h-[320px] bg-black/60 border-white/5">
-              <div className="bg-[#1a1a1a] px-4 py-2 border-b border-white/5 flex items-center justify-between">
+            <div className="glass-card rounded-xl overflow-hidden flex flex-col h-[320px] bg-black/40 border-white/5">
+              <div className="bg-[#1a1a1a]/60 px-4 py-2 border-b border-white/5 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <TerminalIcon className="w-3.5 h-3.5 text-green-400" />
                   <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Production Logs</span>
