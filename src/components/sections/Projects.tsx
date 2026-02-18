@@ -15,7 +15,7 @@ const projects = [
     description: "Full-stack live streaming web platform supporting 500+ concurrent users with real-time broadcasting and content management.",
     tech: ["React", "Next.js", "Node.js", "Express", "PostgreSQL", "WebSockets"],
     live: "https://www.klradio.in/",
-    github: "https://github.com/Bhanutejanallamothu",
+    github: "https://github.com/Bhanutejanallamothu/Klradio",
     image: PlaceHolderImages.find(img => img.id === "kl-radio")?.imageUrl || "https://picsum.photos/seed/kl/800/600",
   },
   {
@@ -35,7 +35,7 @@ const projects = [
     description: "Healthcare management web application with patient, prescription, and appointment modules, real-time data synchronization.",
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     live: "https://hms-liard-six.vercel.app/",
-    github: "https://github.com/Bhanutejanallamothu",
+    github: "https://github.com/Bhanutejanallamothu/health",
     image: PlaceHolderImages.find(img => img.id === "hms")?.imageUrl || "https://picsum.photos/seed/hospital/800/600",
   },
   {
