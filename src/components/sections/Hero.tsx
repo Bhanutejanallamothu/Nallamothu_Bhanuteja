@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -9,9 +10,12 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export default function Hero() {
   const [urlText, setUrlText] = useState("");
+  const [typedLines, setTypedLines] = useState(["", "", ""]);
   const fullUrl = "http://localhost:8080/profile";
+  const fullLines = ["Engineering", "Clean Code &", "Experiences."];
   const portraitImg = PlaceHolderImages.find(img => img.id === "portrait")?.imageUrl || "https://picsum.photos/seed/bhanuteja/800/1000";
   
+  // URL typing effect
   useEffect(() => {
     let currentText = "";
     let currentIndex = 0;
@@ -27,6 +31,36 @@ export default function Hero() {
     }, 50);
     
     return () => clearInterval(interval);
+  }, []);
+
+  // Headline typing effect
+  useEffect(() => {
+    let lineIdx = 0;
+    let charIdx = 0;
+    const timeouts: NodeJS.Timeout[] = [];
+
+    const typeChar = () => {
+      if (lineIdx < fullLines.length) {
+        if (charIdx < fullLines[lineIdx].length) {
+          setTypedLines(prev => {
+            const next = [...prev];
+            next[lineIdx] = fullLines[lineIdx].substring(0, charIdx + 1);
+            return next;
+          });
+          charIdx++;
+          timeouts.push(setTimeout(typeChar, 60));
+        } else {
+          lineIdx++;
+          charIdx = 0;
+          timeouts.push(setTimeout(typeChar, 300)); // Pause between lines
+        }
+      }
+    };
+
+    const initialDelay = setTimeout(typeChar, 800);
+    timeouts.push(initialDelay);
+
+    return () => timeouts.forEach(clearTimeout);
   }, []);
 
   return (
@@ -57,10 +91,21 @@ export default function Hero() {
                 </span>
               </motion.div>
               
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1]">
-                Engineering <br />
-                <span className="gradient-text">Clean Code</span> & <br />
-                Experiences.
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1] font-mono">
+                <div className="min-h-[1.1em]">
+                  {typedLines[0]}
+                  {typedLines[0].length < fullLines[0].length && typedLines[0].length > 0 && <span className="w-2 h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />}
+                </div>
+                <div className="min-h-[1.1em]">
+                  <span className="gradient-text">{typedLines[1].replace(' &', '')}</span>
+                  {typedLines[1].includes('&') && ' &'}
+                  {typedLines[1].length < fullLines[1].length && typedLines[1].length > 0 && <span className="w-2 h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />}
+                </div>
+                <div className="min-h-[1.1em]">
+                  {typedLines[2]}
+                  {typedLines[2].length < fullLines[2].length && typedLines[2].length > 0 && <span className="w-2 h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />}
+                  {typedLines[2] === fullLines[2] && <span className="w-2 h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />}
+                </div>
               </h1>
               
               <p className="text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
