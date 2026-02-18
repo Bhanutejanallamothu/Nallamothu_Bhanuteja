@@ -1,3 +1,22 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "kl-radio",
+      "description": "KL Radio streaming platform interface",
+      "imageUrl": "https://images.unsplash.com/photo-1762330914934-976533b1df84?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzdHJlYW1pbmclMjB3ZWIlMjBhcHAlMjBpbnRlcmZhY2V8ZW58MHx8fHwxNzcxNDExMjI0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "streaming web app interface"
+    },
+    {
+      "id": "hms",
+      "description": "Hospital Management System dashboard",
+      "imageUrl": "https://images.unsplash.com/photo-1630531210902-0673fd470570?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtZWRpY2FsJTIwZGFzaGJvYXJkJTIwaW50ZXJmYWNlfGVufDB8fHx8MTc3MTQxMTIyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "medical dashboard interface"
+    },
+    {
+      "id": "ybs",
+      "description": "YBS Industries business website",
+      "imageUrl": "https://images.unsplash.com/photo-1642054220431-649c53b0d3de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtb2Rlcm4lMjBidXNpbmVzcyUyMHdlYnNpdGV8ZW58MHx8fHwxNzcxNDExMjI0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern business website"
+    }
+  ]
 }
