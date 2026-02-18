@@ -50,7 +50,7 @@ export default function Contact() {
 
     timeout = setTimeout(tick, 800);
     return () => clearTimeout(timeout);
-  }, [isDeleting]);
+  }, [isDeleting, typedHeader, fullHeader]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -143,7 +143,7 @@ export default function Contact() {
               </div>
 
               <Button variant="outline" size="lg" className="rounded-full gap-2" asChild>
-                <a href="/resume.pdf" download>
+                <a href="https://ik.imagekit.io/bhanuteja110/Nallamothu_Bhanuteja.pdf" target="_blank" rel="noopener noreferrer">
                   <Download className="w-4 h-4" />
                   Download Resume
                 </a>

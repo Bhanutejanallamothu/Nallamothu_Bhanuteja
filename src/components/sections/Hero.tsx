@@ -163,7 +163,7 @@ export default function Hero() {
                 
                 <InteractiveButton 
                   variant="outline" 
-                  onClick={() => window.open('/resume.pdf', '_blank')}
+                  onClick={() => window.open('https://ik.imagekit.io/bhanuteja110/Nallamothu_Bhanuteja.pdf', '_blank')}
                 >
                   <Download className="w-4 h-4" />
                   Download Resume
