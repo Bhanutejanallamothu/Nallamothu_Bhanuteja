@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -18,6 +17,16 @@ const projects = [
     live: "https://www.klradio.in/",
     github: "https://github.com/Bhanutejanallamothu",
     image: PlaceHolderImages.find(img => img.id === "kl-radio")?.imageUrl || "https://picsum.photos/seed/kl/800/600",
+  },
+  {
+    id: "virtual-intern-pro",
+    title: "Virtual Intern Pro",
+    subtitle: "Internship Management System",
+    description: "A comprehensive platform connecting students with virtual internships, featuring smart matching, student/company dashboards, and real-time messaging.",
+    tech: ["React", "Next.js", "Firebase", "Tailwind CSS", "Zustand"],
+    live: "https://studio-tngx.vercel.app/login",
+    github: "https://github.com/Bhanutejanallamothu/Virtual_Intern_Pro",
+    image: PlaceHolderImages.find(img => img.id === "vip")?.imageUrl || "https://picsum.photos/seed/vip/800/600",
   },
   {
     id: "hms",
@@ -57,7 +66,7 @@ export default function Projects() {
           <p className="text-muted-foreground">A selection of my recent full-stack projects.</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -67,7 +76,7 @@ export default function Projects() {
               transition={{ delay: index * 0.1 }}
               className="group glass-card rounded-3xl overflow-hidden hover:border-primary/30 transition-all duration-500 flex flex-col"
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-video overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}

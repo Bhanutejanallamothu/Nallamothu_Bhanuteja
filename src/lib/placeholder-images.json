@@ -17,6 +17,12 @@
       "description": "YBS Industries business website",
       "imageUrl": "https://images.unsplash.com/photo-1642054220431-649c53b0d3de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtb2Rlcm4lMjBidXNpbmVzcyUyMHdlYnNpdGV8ZW58MHx8fHwxNzcxNDExMjI0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "modern business website"
+    },
+    {
+      "id": "vip",
+      "description": "Virtual Intern Pro internship platform dashboard",
+      "imageUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8aW50ZXJuc2hpcCUyMGRhc2hib2FyZHxlbnwwfHx8fDE3NzE0MTEyMjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "internship dashboard"
     }
   ]
 }
