@@ -1,25 +1,58 @@
 
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Send, Download } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Github, Linkedin, Send, Download, Terminal, CheckCircle2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 
 export default function Contact() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const message = formData.get("message") as string;
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [activeField, setActiveField] = useState<"name" | "email" | "message" | "submit">("name");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const messageInputRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, current: string) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      if (current === "name") setActiveField("email");
+      if (current === "email") setActiveField("message");
+      if (current === "message") setActiveField("submit");
+    }
+  };
+
+  const handleSubmit = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    const { name, email, message } = formData;
+    
+    if (!name || !email || !message) {
+      alert("Please complete all fields in the terminal.");
+      return;
+    }
 
     const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
     
     window.location.href = `mailto:nallamothubhanuteja110@gmail.com?subject=${subject}&body=${body}`;
+    
+    setIsSubmitted(true);
+    setTimeout(() => setIsSubmitted(false), 5000);
+  };
+
+  const focusField = (field: "name" | "email" | "message") => {
+    setActiveField(field);
+    if (field === "name") nameInputRef.current?.focus();
+    if (field === "email") emailInputRef.current?.focus();
+    if (field === "message") messageInputRef.current?.focus();
   };
 
   return (
@@ -84,33 +117,140 @@ export default function Contact() {
               </Button>
             </motion.div>
 
+            {/* CLI Contact Terminal */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="glass-card p-8 md:p-10 rounded-3xl"
+              className="relative"
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Name</label>
-                    <Input name="name" placeholder="John Doe" className="bg-background border-border rounded-xl h-12" required />
+              <div className="glass-card rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col h-[500px]">
+                {/* Terminal Header */}
+                <div className="bg-[#1e1e1e]/80 border-b border-white/5 px-4 py-2 flex items-center justify-between shrink-0">
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Email</label>
-                    <Input name="email" type="email" placeholder="john@example.com" className="bg-background border-border rounded-xl h-12" required />
+                  <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">bash — contact.sh</div>
+                  <Terminal className="w-3 h-3 text-muted-foreground/30" />
+                </div>
+
+                {/* Terminal Body */}
+                <div 
+                  className="p-8 font-mono text-sm md:text-base flex-1 overflow-y-auto custom-scrollbar"
+                  onClick={() => focusField(activeField === "submit" ? "message" : activeField)}
+                >
+                  <div className="space-y-6">
+                    {/* Name Field */}
+                    <div className={cn("transition-opacity duration-300", activeField !== "name" && formData.name === "" ? "opacity-30" : "opacity-100")}>
+                      <div className="flex items-center gap-2 text-primary mb-1">
+                        <ChevronRight className="w-4 h-4" />
+                        <span className="text-white">name</span>
+                      </div>
+                      <div className="flex items-center gap-2 pl-6">
+                        <span className="text-muted-foreground/50">$</span>
+                        <input
+                          ref={nameInputRef}
+                          name="name"
+                          type="text"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          onKeyDown={(e) => handleKeyDown(e, "name")}
+                          placeholder="your name..."
+                          className="bg-transparent border-none outline-none text-foreground w-full placeholder:text-muted-foreground/20"
+                          autoComplete="off"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Email Field */}
+                    <div className={cn("transition-opacity duration-300", activeField !== "email" && formData.email === "" ? "opacity-30" : "opacity-100")}>
+                      <div className="flex items-center gap-2 text-primary mb-1">
+                        <ChevronRight className="w-4 h-4" />
+                        <span className="text-white">email</span>
+                      </div>
+                      <div className="flex items-center gap-2 pl-6">
+                        <span className="text-muted-foreground/50">$</span>
+                        <input
+                          ref={emailInputRef}
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          onKeyDown={(e) => handleKeyDown(e, "email")}
+                          placeholder="your@email.com"
+                          className="bg-transparent border-none outline-none text-foreground w-full placeholder:text-muted-foreground/20"
+                          autoComplete="off"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Message Field */}
+                    <div className={cn("transition-opacity duration-300", activeField !== "message" && formData.message === "" ? "opacity-30" : "opacity-100")}>
+                      <div className="flex items-center gap-2 text-primary mb-1">
+                        <ChevronRight className="w-4 h-4" />
+                        <span className="text-white">message</span>
+                      </div>
+                      <div className="flex items-start gap-2 pl-6">
+                        <span className="text-muted-foreground/50 mt-1">$</span>
+                        <textarea
+                          ref={messageInputRef}
+                          name="message"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          onKeyDown={(e) => handleKeyDown(e, "message")}
+                          placeholder="type your message here..."
+                          className="bg-transparent border-none outline-none text-foreground w-full resize-none min-h-[100px] placeholder:text-muted-foreground/20"
+                          autoComplete="off"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Send Command */}
+                    <AnimatePresence>
+                      {(formData.name && formData.email && formData.message) && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="pt-4 border-t border-white/5"
+                        >
+                          <div className="flex items-center gap-2 text-primary mb-4">
+                            <ChevronRight className="w-4 h-4" />
+                            <span className="text-white">send</span>
+                          </div>
+                          <div className="pl-6">
+                            <button
+                              onClick={() => handleSubmit()}
+                              className="group flex items-center gap-2 px-4 py-2 rounded bg-primary/10 border border-primary/20 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-bold uppercase tracking-widest text-xs"
+                            >
+                              <span className="text-muted-foreground/50 group-hover:text-primary-foreground/50">$</span>
+                              run transmit.sh
+                              <Send className="w-3 h-3 transition-transform group-hover:translate-x-1" />
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {/* Success Message */}
+                    <AnimatePresence>
+                      {isSubmitted && (
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0 }}
+                          className="flex items-center gap-2 text-green-400 pl-6 mt-4"
+                        >
+                          <CheckCircle2 className="w-4 h-4" />
+                          <span>✔ Message transmitted successfully.</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Message</label>
-                  <Textarea name="message" placeholder="Hi, let's talk about..." className="bg-background border-border rounded-xl min-h-[150px] resize-none" required />
-                </div>
-                <Button type="submit" size="lg" className="w-full rounded-xl h-14 gap-2 text-base font-bold group">
-                  Send Message
-                  <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </Button>
-              </form>
+              </div>
             </motion.div>
           </div>
 
