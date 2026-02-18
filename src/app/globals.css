@@ -94,9 +94,18 @@
   100% { stroke-dashoffset: 0; }
 }
 
-@keyframes breathe {
-  0%, 100% { opacity: 0.1; transform: scale(1); }
-  50% { opacity: 0.2; transform: scale(1.05); }
+@keyframes scanner {
+  0% { top: -10%; opacity: 0; }
+  5% { opacity: 0.3; }
+  95% { opacity: 0.3; }
+  100% { top: 110%; opacity: 0; }
+}
+
+@keyframes packet-flow {
+  0% { offset-distance: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
 }
 
 .animate-scroll-code {
@@ -112,8 +121,8 @@
   animation: pulse-line 30s linear infinite;
 }
 
-.animate-breathe {
-  animation: breathe 8s ease-in-out infinite;
+.animate-scanner {
+  animation: scanner 8s linear infinite;
 }
 
 html {
