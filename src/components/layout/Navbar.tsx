@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -42,7 +41,7 @@ export default function Navbar() {
           }`}
         >
           <Link href="/" className="text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity">
-            <span className="gradient-text">BN</span>
+            <span className="gradient-text">B</span>
           </Link>
 
           {/* Desktop Nav */}
