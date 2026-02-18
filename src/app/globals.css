@@ -94,13 +94,6 @@
   100% { stroke-dashoffset: 0; }
 }
 
-@keyframes scanner {
-  0% { top: -10%; opacity: 0; }
-  5% { opacity: 0.3; }
-  95% { opacity: 0.3; }
-  100% { top: 110%; opacity: 0; }
-}
-
 @keyframes packet-flow {
   0% { offset-distance: 0%; opacity: 0; }
   10% { opacity: 1; }
@@ -119,10 +112,6 @@
 .animate-pulse-line {
   stroke-dasharray: 100;
   animation: pulse-line 30s linear infinite;
-}
-
-.animate-scanner {
-  animation: scanner 8s linear infinite;
 }
 
 html {

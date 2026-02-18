@@ -18,12 +18,7 @@ const BackgroundWorkspace = () => {
       <div className="ide-mesh-gradient" />
       <div className="ide-grid" />
 
-      {/* 1. Scanner Layer (System Health Sweep) */}
-      <div className="absolute inset-0 pointer-events-none z-10">
-        <div className="animate-scanner absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/40 to-transparent blur-[1px]" />
-      </div>
-
-      {/* 2. IDE Code Layer (Blurred Scrolling Code) */}
+      {/* 1. IDE Code Layer (Blurred Scrolling Code) */}
       <div className="absolute inset-0 opacity-[0.05] blur-[3px] overflow-hidden pointer-events-none">
         <div className="animate-scroll-code font-mono text-[10px] space-y-4 p-12 whitespace-pre">
           <div className="text-primary">const app = express();</div>
@@ -48,7 +43,7 @@ const BackgroundWorkspace = () => {
         </div>
       </div>
 
-      {/* 3. Terminal Layer (Drifting Logs) */}
+      {/* 2. Terminal Layer (Drifting Logs) */}
       <div className="absolute inset-0 pointer-events-none">
         {[1, 2, 3].map((i) => (
           <div
@@ -74,7 +69,7 @@ const BackgroundWorkspace = () => {
         ))}
       </div>
 
-      {/* 4. Architecture / Network Layer (Glowing SVG Lines + Packets) */}
+      {/* 3. Architecture / Network Layer (Glowing SVG Lines + Packets) */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.1]">
         <path
           id="path-1"
@@ -107,7 +102,7 @@ const BackgroundWorkspace = () => {
         </circle>
       </svg>
 
-      {/* 5. Cloud / Infra Layer (Sharp Floating Icons + Status LEDs) */}
+      {/* 4. Cloud / Infra Layer (Sharp Floating Icons + Status LEDs) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={{ y: [0, -25, 0] }}
