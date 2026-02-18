@@ -11,6 +11,7 @@ export default function Hero() {
   const [urlText, setUrlText] = useState("");
   const [typedLines, setTypedLines] = useState(["", "", ""]);
   const [currentLine, setCurrentLine] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
   
   const fullUrl = "http://localhost:8080/profile";
   const fullLines = ["Engineering", "Clean Code &", "Experiences."];
@@ -34,42 +35,75 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  // Headline typing effect
+  // Headline typing/deleting loop effect
   useEffect(() => {
-    let lineIdx = 0;
-    let charIdx = 0;
-    const timeouts: NodeJS.Timeout[] = [];
+    let lineIdx = isDeleting ? fullLines.length - 1 : 0;
+    let charIdx = isDeleting ? fullLines[lineIdx].length : 0;
+    let timeout: NodeJS.Timeout;
 
-    const typeChar = () => {
-      if (lineIdx < fullLines.length) {
-        if (charIdx < fullLines[lineIdx].length) {
-          setTypedLines(prev => {
-            const next = [...prev];
-            next[lineIdx] = fullLines[lineIdx].substring(0, charIdx + 1);
-            return next;
-          });
-          charIdx++;
-          timeouts.push(setTimeout(typeChar, 70));
-        } else {
-          // Finish current line
-          if (lineIdx < fullLines.length - 1) {
-            // Pause before moving to next line
-            timeouts.push(setTimeout(() => {
+    const tick = () => {
+      if (!isDeleting) {
+        // TYPING PHASE
+        if (lineIdx < fullLines.length) {
+          if (charIdx < fullLines[lineIdx].length) {
+            setTypedLines(prev => {
+              const next = [...prev];
+              next[lineIdx] = fullLines[lineIdx].substring(0, charIdx + 1);
+              return next;
+            });
+            charIdx++;
+            timeout = setTimeout(tick, 70);
+          } else {
+            // End of current line
+            if (lineIdx < fullLines.length - 1) {
               lineIdx++;
               charIdx = 0;
               setCurrentLine(lineIdx);
-              typeChar();
-            }, 300));
+              timeout = setTimeout(tick, 300); // Pause between lines
+            } else {
+              // End of all lines - pause before deleting
+              timeout = setTimeout(() => {
+                setIsDeleting(true);
+              }, 2000);
+            }
+          }
+        }
+      } else {
+        // DELETING PHASE
+        if (lineIdx >= 0) {
+          if (charIdx > 0) {
+            setTypedLines(prev => {
+              const next = [...prev];
+              next[lineIdx] = fullLines[lineIdx].substring(0, charIdx - 1);
+              return next;
+            });
+            charIdx--;
+            timeout = setTimeout(tick, 30);
+          } else {
+            // Line is empty, move to previous line
+            if (lineIdx > 0) {
+              lineIdx--;
+              setCurrentLine(lineIdx);
+              charIdx = fullLines[lineIdx].length;
+              timeout = setTimeout(tick, 30);
+            } else {
+              // All lines empty - start typing again
+              setIsDeleting(false);
+              lineIdx = 0;
+              charIdx = 0;
+              setCurrentLine(0);
+              timeout = setTimeout(tick, 500); // Short pause before restart
+            }
           }
         }
       }
     };
 
-    const initialDelay = setTimeout(typeChar, 800);
-    timeouts.push(initialDelay);
+    // Initial delay for the first type-in
+    timeout = setTimeout(tick, isDeleting ? 0 : 800);
 
-    return () => timeouts.forEach(clearTimeout);
-  }, []);
+    return () => clearTimeout(timeout);
+  }, [isDeleting]);
 
   const EditorCursor = () => (
     <span className="w-[3px] h-[0.9em] bg-primary inline-block ml-1 animate-editor-blink align-middle" />
