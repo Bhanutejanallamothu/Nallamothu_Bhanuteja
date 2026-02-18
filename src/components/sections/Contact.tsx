@@ -14,7 +14,7 @@ export default function Contact() {
   // Typewriter states for heading
   const [typedHeader, setTypedHeader] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const fullHeader = "Let's Build Something Together";
+  const fullHeader = "Let's Connect";
 
   const nameInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -99,9 +99,9 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight min-h-[1.2em] font-mono">
-                {typedHeader.split("Together")[0]}
-                {typedHeader.includes("Together") && <span className="gradient-text">Together</span>}
+              <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight min-h-[1.2em] font-mono">
+                {typedHeader.split("Connect")[0]}
+                {typedHeader.includes("Connect") && <span className="gradient-text">Connect</span>}
                 <span className="w-[3px] h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />
               </h2>
               <p className="text-lg text-muted-foreground mb-12 max-w-md leading-relaxed">
