@@ -42,7 +42,7 @@ export default function Hero() {
     let timeout: NodeJS.Timeout;
 
     const tick = () => {
-      const typingSpeed = 70; // Constant speed for both typing and deleting
+      const typingSpeed = 100; // Slowed down from 70ms to 100ms for a more deliberate feel
 
       if (!isDeleting) {
         // TYPING PHASE
