@@ -23,10 +23,13 @@ export default function Contact() {
 
   const handleKeyDown = (e: React.KeyboardEvent, current: string) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      if (current === "name") setActiveField("email");
-      if (current === "email") setActiveField("message");
-      if (current === "message") setActiveField("submit");
+      if (current === "name") {
+        e.preventDefault();
+        emailInputRef.current?.focus();
+      } else if (current === "email") {
+        e.preventDefault();
+        messageInputRef.current?.focus();
+      }
     }
   };
 
@@ -35,7 +38,6 @@ export default function Contact() {
     const { name, email, message } = formData;
     
     if (!name || !email || !message) {
-      alert("Please complete all fields in the terminal.");
       return;
     }
 
@@ -46,13 +48,6 @@ export default function Contact() {
     
     setIsSubmitted(true);
     setTimeout(() => setIsSubmitted(false), 5000);
-  };
-
-  const focusField = (field: "name" | "email" | "message") => {
-    setActiveField(field);
-    if (field === "name") nameInputRef.current?.focus();
-    if (field === "email") emailInputRef.current?.focus();
-    if (field === "message") messageInputRef.current?.focus();
   };
 
   return (
@@ -139,12 +134,19 @@ export default function Contact() {
 
                 {/* Terminal Body */}
                 <div 
-                  className="p-8 font-mono text-sm md:text-base flex-1 overflow-y-auto custom-scrollbar"
-                  onClick={() => focusField(activeField === "submit" ? "message" : activeField)}
+                  className="p-8 font-mono text-sm md:text-base flex-1 overflow-y-auto custom-scrollbar cursor-text"
+                  onClick={() => {
+                    if (!formData.name) nameInputRef.current?.focus();
+                    else if (!formData.email) emailInputRef.current?.focus();
+                    else messageInputRef.current?.focus();
+                  }}
                 >
                   <div className="space-y-6">
                     {/* Name Field */}
-                    <div className={cn("transition-opacity duration-300", activeField !== "name" && formData.name === "" ? "opacity-30" : "opacity-100")}>
+                    <div 
+                      className={cn("group transition-opacity duration-300", activeField !== "name" && !formData.name ? "opacity-40" : "opacity-100")}
+                      onClick={(e) => { e.stopPropagation(); nameInputRef.current?.focus(); }}
+                    >
                       <div className="flex items-center gap-2 text-primary mb-1">
                         <ChevronRight className="w-4 h-4" />
                         <span className="text-white">name</span>
@@ -156,6 +158,7 @@ export default function Contact() {
                           name="name"
                           type="text"
                           value={formData.name}
+                          onFocus={() => setActiveField("name")}
                           onChange={handleInputChange}
                           onKeyDown={(e) => handleKeyDown(e, "name")}
                           placeholder="your name..."
@@ -166,7 +169,10 @@ export default function Contact() {
                     </div>
 
                     {/* Email Field */}
-                    <div className={cn("transition-opacity duration-300", activeField !== "email" && formData.email === "" ? "opacity-30" : "opacity-100")}>
+                    <div 
+                      className={cn("group transition-opacity duration-300", activeField !== "email" && !formData.email ? "opacity-40" : "opacity-100")}
+                      onClick={(e) => { e.stopPropagation(); emailInputRef.current?.focus(); }}
+                    >
                       <div className="flex items-center gap-2 text-primary mb-1">
                         <ChevronRight className="w-4 h-4" />
                         <span className="text-white">email</span>
@@ -178,6 +184,7 @@ export default function Contact() {
                           name="email"
                           type="email"
                           value={formData.email}
+                          onFocus={() => setActiveField("email")}
                           onChange={handleInputChange}
                           onKeyDown={(e) => handleKeyDown(e, "email")}
                           placeholder="your@email.com"
@@ -188,7 +195,10 @@ export default function Contact() {
                     </div>
 
                     {/* Message Field */}
-                    <div className={cn("transition-opacity duration-300", activeField !== "message" && formData.message === "" ? "opacity-30" : "opacity-100")}>
+                    <div 
+                      className={cn("group transition-opacity duration-300", activeField !== "message" && !formData.message ? "opacity-40" : "opacity-100")}
+                      onClick={(e) => { e.stopPropagation(); messageInputRef.current?.focus(); }}
+                    >
                       <div className="flex items-center gap-2 text-primary mb-1">
                         <ChevronRight className="w-4 h-4" />
                         <span className="text-white">message</span>
@@ -199,6 +209,7 @@ export default function Contact() {
                           ref={messageInputRef}
                           name="message"
                           value={formData.message}
+                          onFocus={() => setActiveField("message")}
                           onChange={handleInputChange}
                           onKeyDown={(e) => handleKeyDown(e, "message")}
                           placeholder="type your message here..."
@@ -222,7 +233,7 @@ export default function Contact() {
                           </div>
                           <div className="pl-6">
                             <button
-                              onClick={() => handleSubmit()}
+                              onClick={(e) => { e.stopPropagation(); handleSubmit(); }}
                               className="group flex items-center gap-2 px-4 py-2 rounded bg-primary/10 border border-primary/20 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-bold uppercase tracking-widest text-xs"
                             >
                               <span className="text-muted-foreground/50 group-hover:text-primary-foreground/50">$</span>
@@ -264,3 +275,4 @@ export default function Contact() {
     </section>
   );
 }
+
