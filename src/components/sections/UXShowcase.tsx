@@ -12,11 +12,8 @@ import {
   Activity,
   Server,
   Globe,
-  MousePointer2,
+  Activity as ActivityIcon,
   Terminal as TerminalIcon,
-  Search,
-  Layout,
-  Network
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { 
@@ -140,7 +137,7 @@ export default function UXShowcase() {
             </div>
             
             <div className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-lg px-4 py-2 font-mono text-[10px] text-muted-foreground">
-              <Activity className="w-3 h-3 text-primary" />
+              <ActivityIcon className="w-3 h-3 text-primary" />
               <span>Pipeline Status: 99.9% Reliable</span>
             </div>
           </div>
@@ -198,10 +195,10 @@ export default function UXShowcase() {
           </div>
 
           {/* Metrics & Terminal Dashboard */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             
-            {/* SRE Terminal Console */}
-            <div className="lg:col-span-2 glass-card rounded-xl overflow-hidden flex flex-col h-[320px] bg-black/60 border-white/5">
+            {/* SRE Terminal Console (Expanded to full width) */}
+            <div className="glass-card rounded-xl overflow-hidden flex flex-col h-[320px] bg-black/60 border-white/5">
               <div className="bg-[#1a1a1a] px-4 py-2 border-b border-white/5 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <TerminalIcon className="w-3.5 h-3.5 text-green-400" />
@@ -237,40 +234,6 @@ export default function UXShowcase() {
                   transition={{ repeat: Infinity, duration: 0.8 }}
                   className="w-2 h-3.5 bg-primary/50 inline-block ml-1 align-middle"
                 />
-              </div>
-            </div>
-
-            {/* Production Status Block */}
-            <div className="flex flex-col gap-6">
-              <div className="glass-card p-8 rounded-xl border-white/5 flex flex-col flex-1 bg-gradient-to-br from-green-500/5 to-transparent">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 rounded-full bg-green-500/20 border border-green-500/20">
-                    <Globe className="w-5 h-5 text-green-400" />
-                  </div>
-                  <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Production Status</span>
-                </div>
-                
-                <h3 className="text-2xl font-bold text-foreground mb-4">Deployment: <span className="text-green-400">Stable</span></h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Every project is delivered through a rigorous pipeline that ensures high-fidelity results and optimal user experience metrics.
-                </p>
-                
-                <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-4 gap-2">
-                  {Array.from({ length: 16 }).map((_, i) => (
-                    <motion.div
-                      key={i}
-                      animate={{ 
-                        opacity: [0.3, 0.8, 0.3],
-                      }}
-                      transition={{ 
-                        repeat: Infinity, 
-                        duration: 3, 
-                        delay: i * 0.2 
-                      }}
-                      className="aspect-square rounded-[2px] bg-green-500/80"
-                    />
-                  ))}
-                </div>
               </div>
             </div>
           </div>
@@ -326,7 +289,7 @@ export default function UXShowcase() {
             </div>
             <div className="text-primary/20">→</div>
             <div className="flex items-center gap-2">
-              <Activity className="w-3.5 h-3.5" /> End User Browser
+              <ActivityIcon className="w-3.5 h-3.5" /> End User Browser
             </div>
           </div>
 
