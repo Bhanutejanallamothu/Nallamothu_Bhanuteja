@@ -92,7 +92,7 @@ export default function About() {
               </div>
             </motion.div>
 
-            {/* Console Cards for Skills */}
+            {/* Console Cards for Skills (Redesigned as IDE Modules) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {focusAreas.map((area, index) => (
                 <motion.div
@@ -101,27 +101,43 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="p-5 glass-card rounded-xl hover:border-primary/50 transition-all group relative border-white/5"
+                  className="p-6 glass-card rounded-xl border-white/5 hover:border-primary/50 transition-all duration-300 group relative flex flex-col overflow-hidden"
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <area.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <span className="text-[9px] font-mono text-muted-foreground/50 uppercase tracking-tighter">
-                      {area.command}
-                    </span>
-                  </div>
-                  <h3 className="text-base font-bold mb-2 tracking-tight flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full bg-primary" />
-                    {area.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {area.description}
-                  </p>
+                  {/* Top Activation Line (IDE Metaphor) */}
+                  <div className="absolute top-0 left-0 h-1 bg-primary w-0 group-hover:w-full transition-all duration-500 ease-in-out" />
                   
-                  {/* Decorative corner */}
-                  <div className="absolute top-0 right-0 p-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Terminal className="w-3 h-3 text-primary/30" />
+                  {/* Background Shift on Activation */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="p-2.5 rounded-lg bg-white/5 group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 shadow-[0_0_0_1px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_15px_rgba(72,219,251,0.3)]">
+                        <area.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <span className="text-[10px] font-mono text-muted-foreground/40 group-hover:text-primary/60 uppercase tracking-tighter transition-colors">
+                        {area.command}
+                      </span>
+                    </div>
+
+                    <h3 className="text-base font-bold mb-2.5 tracking-tight flex items-center gap-2 group-hover:text-foreground transition-colors">
+                      <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30 group-hover:bg-primary transition-colors animate-pulse" />
+                      {area.title}
+                    </h3>
+                    
+                    <p className="text-xs text-muted-foreground leading-relaxed group-hover:text-muted-foreground/80 transition-colors">
+                      {area.description}
+                    </p>
+
+                    {/* Module Status Indicator */}
+                    <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="text-[9px] font-mono text-primary/50">module: active</span>
+                      <Terminal className="w-3 h-3 text-primary/30" />
+                    </div>
+                  </div>
+                  
+                  {/* Subtle Corner Decoration */}
+                  <div className="absolute bottom-0 right-0 p-1 pointer-events-none opacity-20 group-hover:opacity-100 transition-opacity">
+                    <div className="w-1.5 h-1.5 border-r border-b border-primary/40" />
                   </div>
                 </motion.div>
               ))}
