@@ -12,7 +12,8 @@ import {
   Settings, 
   CheckCircle2, 
   Zap,
-  Layout
+  Layout,
+  Server
 } from "lucide-react";
 
 const DockerIcon = () => (
@@ -33,11 +34,18 @@ const GitIcon = () => (
   </svg>
 );
 
+const RenderIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+    <path d="M19.164 0l-3.307 3.307L12.55 0H7.72l4.814 4.814L9.227 8.12 4.414 3.307 0 7.72l4.814 4.814-4.814 4.814 4.414 4.414 4.813-4.814 3.307 3.307L7.72 24h4.83l3.307-3.307 3.307 3.307H24l-4.814-4.814 3.307-3.307-3.307-3.307L24 7.72l-4.836-7.72zM12.55 12.55L9.227 15.87l-3.307-3.307 3.307-3.307 3.307 3.307z"/>
+  </svg>
+);
+
 const toolIcons: Record<string, React.ComponentType> = {
   "AWS": Cloud,
   "Docker": DockerIcon,
   "Vercel": VercelIcon,
   "Git/CI-CD": GitIcon,
+  "Render": RenderIcon,
 };
 
 const skillPanels = [
@@ -46,7 +54,7 @@ const skillPanels = [
     category: "Frontend",
     icon: Layout,
     color: "text-blue-400",
-    skills: ["React.js", "Next.js", "Tailwind CSS", "TypeScript", "Framer Motion", "Shadcn UI"],
+    skills: ["React.js", "Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
     colSpan: "md:col-span-2",
   },
   {
@@ -62,7 +70,7 @@ const skillPanels = [
     category: "Databases",
     icon: DatabaseIcon,
     color: "text-purple-400",
-    skills: ["PostgreSQL", "MySQL", "MongoDB", "Prisma", "Redis", "Firebase"],
+    skills: ["PostgreSQL", "MySQL"],
     colSpan: "md:col-span-2",
   },
 ];
@@ -147,8 +155,8 @@ export default function Skills() {
               </div>
               
               <div className="p-8 bg-[#0d1117]/40">
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-                  {["AWS", "Docker", "Vercel", "Git/CI-CD"].map((tool) => {
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-6">
+                  {["AWS", "Docker", "Render", "Vercel", "Git/CI-CD"].map((tool) => {
                     const Icon = toolIcons[tool] || Zap;
                     return (
                       <div key={tool} className="flex flex-col items-center gap-3 group/tool">
@@ -193,7 +201,7 @@ export default function Skills() {
                 </div>
                 <div className="flex items-center gap-2 text-sky-400">
                   <CheckCircle2 className="w-3 h-3" />
-                  <span>AWS infrastructure live</span>
+                  <span>Infrastructure live on Render</span>
                 </div>
                 <div className="flex items-center gap-2 text-green-400 mt-4">
                   <span className="animate-pulse">●</span>
