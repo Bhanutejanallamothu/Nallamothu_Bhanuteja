@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -16,7 +17,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center py-20 overflow-hidden">
       {/* Decorative background elements */}
       <div className="hero-glow top-1/4 -left-1/4" />
       <div className="hero-glow bottom-1/4 -right-1/4" style={{ background: "radial-gradient(circle, rgba(142, 68, 173, 0.15) 0%, rgba(72, 219, 251, 0.05) 100%)" }} />
@@ -49,7 +50,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="glass-card rounded-2xl overflow-hidden border border-white/10 shadow-2xl max-w-3xl mx-auto w-full mb-12"
+            className="glass-card rounded-2xl overflow-hidden border border-white/10 shadow-2xl max-w-3xl mx-auto w-full mb-16"
           >
             {/* Window Header */}
             <div className="bg-[#1e1e1e]/80 border-b border-white/5 px-4 py-3 flex items-center justify-between">
@@ -101,7 +102,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-6"
+            className="flex flex-col sm:flex-row items-center justify-center gap-6 relative"
           >
             <InteractiveButton 
               variant="primary" 
@@ -122,18 +123,18 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Subtle scroll indicator */}
+      {/* Subtle scroll indicator - Positioned safely away from buttons */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="mt-12 md:mt-16 flex flex-col items-center"
       >
         <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex justify-center p-1">
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
-            className="w-1.5 h-1.5 rounded-full bg-primary"
+            className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(72,219,251,0.8)]"
           />
         </div>
       </motion.div>

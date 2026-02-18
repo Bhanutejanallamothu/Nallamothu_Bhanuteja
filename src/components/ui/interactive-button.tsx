@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useRef, useState } from "react";
@@ -52,10 +53,10 @@ export default function InteractiveButton({
     mouseY.set(0);
   }
 
-  const baseStyles = "relative px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden group border";
+  const baseStyles = "relative px-8 py-3.5 rounded-full font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden group border select-none";
   const variants = {
-    primary: "bg-primary text-primary-foreground border-primary shadow-[0_0_20px_rgba(72,219,251,0.2)] hover:shadow-[0_0_30px_rgba(72,219,251,0.4)]",
-    outline: "bg-background/40 backdrop-blur-md text-foreground border-white/10 hover:border-primary/50",
+    primary: "bg-primary text-primary-foreground border-primary shadow-[0_0_20px_rgba(72,219,251,0.3)] hover:shadow-[0_0_35px_rgba(72,219,251,0.5)] active:shadow-[0_0_15px_rgba(72,219,251,0.4)]",
+    outline: "bg-background/40 backdrop-blur-md text-foreground border-white/10 hover:border-primary/50 hover:bg-background/60",
   };
 
   return (
@@ -69,6 +70,7 @@ export default function InteractiveButton({
         rotateX: isHovered ? rotateX : 0,
         rotateY: isHovered ? rotateY : 0,
         transformStyle: "preserve-3d",
+        perspective: "1000px",
       }}
       className={cn(baseStyles, variants[variant], className)}
       {...props}
@@ -82,7 +84,7 @@ export default function InteractiveButton({
       />
       
       {/* Content Layer (translated slightly forward for 3D effect) */}
-      <span style={{ transform: "translateZ(20px)" }} className="relative z-10 flex items-center gap-2">
+      <span style={{ transform: "translateZ(20px)" }} className="relative z-10 flex items-center gap-2 tracking-tight">
         {children}
       </span>
     </motion.button>
