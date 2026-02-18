@@ -121,20 +121,18 @@ export default function Hero() {
                     <RotateCw className="w-3.5 h-3.5 text-muted-foreground/40 shrink-0" />
                   </div>
 
-                  {/* Browser Body: Image Content with zoom-out effect */}
-                  <div className="relative aspect-[4/5] bg-[#0d1117] p-8 md:p-12">
-                    <div className="relative w-full h-full overflow-hidden rounded-xl">
-                      <Image 
-                        src={portraitImg} 
-                        alt="Bhanuteja Portrait"
-                        fill
-                        className="object-contain group-hover:scale-110 transition-transform duration-700"
-                        priority
-                        data-ai-hint="professional portrait"
-                      />
-                    </div>
+                  {/* Browser Body: Image Content */}
+                  <div className="relative aspect-[3/4] bg-[#0d1117]">
+                    <Image 
+                      src={portraitImg} 
+                      alt="Bhanuteja Portrait"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      priority
+                      data-ai-hint="professional portrait"
+                    />
                     
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent opacity-40 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117]/60 via-transparent to-transparent pointer-events-none" />
                     
                     {/* Interactive Label */}
                     <div className="absolute bottom-4 left-4 right-4 p-3 glass-card rounded-xl opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 border-white/10">
