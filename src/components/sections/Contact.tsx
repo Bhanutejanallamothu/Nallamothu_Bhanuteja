@@ -21,36 +21,27 @@ export default function Contact() {
   const messageInputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    let charIdx = isDeleting ? typedHeader.length : 0;
+    const typingSpeed = 100;
+    const deleteSpeed = 50;
+    const pauseTime = 2000;
+
     let timeout: NodeJS.Timeout;
 
-    const tick = () => {
-      const typingSpeed = 70;
-      const deleteSpeed = 130;
+    if (!isDeleting && typedHeader === fullHeader) {
+      timeout = setTimeout(() => setIsDeleting(true), pauseTime);
+    } else if (isDeleting && typedHeader === "") {
+      timeout = setTimeout(() => setIsDeleting(false), 500);
+    } else {
+      timeout = setTimeout(() => {
+        setTypedHeader(prev => {
+          if (isDeleting) return prev.slice(0, -1);
+          return fullHeader.slice(0, prev.length + 1);
+        });
+      }, isDeleting ? deleteSpeed : typingSpeed);
+    }
 
-      if (!isDeleting) {
-        if (charIdx < fullHeader.length) {
-          setTypedHeader(fullHeader.substring(0, charIdx + 1));
-          charIdx++;
-          timeout = setTimeout(tick, typingSpeed);
-        } else {
-          timeout = setTimeout(() => setIsDeleting(true), 2000);
-        }
-      } else {
-        if (charIdx > 0) {
-          setTypedHeader(fullHeader.substring(0, charIdx - 1));
-          charIdx--;
-          timeout = setTimeout(tick, deleteSpeed);
-        } else {
-          setIsDeleting(false);
-          timeout = setTimeout(tick, 500);
-        }
-      }
-    };
-
-    timeout = setTimeout(tick, 800);
     return () => clearTimeout(timeout);
-  }, [isDeleting, typedHeader, fullHeader]);
+  }, [typedHeader, isDeleting]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;

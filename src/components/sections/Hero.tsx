@@ -37,68 +37,42 @@ export default function Hero() {
 
   // Headline typing/deleting loop effect
   useEffect(() => {
-    let lineIdx = isDeleting ? fullLines.length - 1 : 0;
-    let charIdx = isDeleting ? fullLines[lineIdx].length : 0;
-    let timeout: NodeJS.Timeout;
+    const typingSpeed = 70;
+    const deleteSpeed = 130;
+    const pauseTime = 2000;
 
-    const tick = () => {
-      const typingSpeed = 70;
-      const deleteSpeed = 130;
-
+    const timer = setTimeout(() => {
       if (!isDeleting) {
-        if (lineIdx < fullLines.length) {
-          if (charIdx < fullLines[lineIdx].length) {
-            setTypedLines(prev => {
-              const next = [...prev];
-              next[lineIdx] = fullLines[lineIdx].substring(0, charIdx + 1);
-              return next;
-            });
-            charIdx++;
-            timeout = setTimeout(tick, typingSpeed);
-          } else {
-            if (lineIdx < fullLines.length - 1) {
-              lineIdx++;
-              charIdx = 0;
-              setCurrentLine(lineIdx);
-              timeout = setTimeout(tick, 300);
-            } else {
-              timeout = setTimeout(() => {
-                setIsDeleting(true);
-              }, 2000);
-            }
-          }
+        // Typing mode
+        if (typedLines[currentLine].length < fullLines[currentLine].length) {
+          setTypedLines(prev => {
+            const next = [...prev];
+            next[currentLine] = fullLines[currentLine].substring(0, prev[currentLine].length + 1);
+            return next;
+          });
+        } else if (currentLine < fullLines.length - 1) {
+          setCurrentLine(prev => prev + 1);
+        } else {
+          setIsDeleting(true);
         }
       } else {
-        if (lineIdx >= 0) {
-          if (charIdx > 0) {
-            setTypedLines(prev => {
-              const next = [...prev];
-              next[lineIdx] = fullLines[lineIdx].substring(0, charIdx - 1);
-              return next;
-            });
-            charIdx--;
-            timeout = setTimeout(tick, deleteSpeed);
-          } else {
-            if (lineIdx > 0) {
-              lineIdx--;
-              setCurrentLine(lineIdx);
-              charIdx = fullLines[lineIdx].length;
-              timeout = setTimeout(tick, deleteSpeed);
-            } else {
-              setIsDeleting(false);
-              lineIdx = 0;
-              charIdx = 0;
-              setCurrentLine(0);
-              timeout = setTimeout(tick, 500);
-            }
-          }
+        // Deleting mode
+        if (typedLines[currentLine].length > 0) {
+          setTypedLines(prev => {
+            const next = [...prev];
+            next[currentLine] = prev[currentLine].substring(0, prev[currentLine].length - 1);
+            return next;
+          });
+        } else if (currentLine > 0) {
+          setCurrentLine(prev => prev - 1);
+        } else {
+          setIsDeleting(false);
         }
       }
-    };
+    }, isDeleting ? deleteSpeed : typedLines[currentLine].length === fullLines[currentLine].length ? pauseTime : typingSpeed);
 
-    timeout = setTimeout(tick, isDeleting ? 0 : 800);
-    return () => clearTimeout(timeout);
-  }, [isDeleting]);
+    return () => clearTimeout(timer);
+  }, [typedLines, currentLine, isDeleting]);
 
   const EditorCursor = () => (
     <span className="w-[3px] h-[0.9em] bg-primary inline-block ml-1 animate-pulse align-middle" />
@@ -133,14 +107,14 @@ export default function Hero() {
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1] font-mono">
                 <div className="min-h-[1.1em]">
                   {typedLines[0]}
-                  {currentLine === 0 && <EditorCursor />}
+                  {currentLine === 0 && !isDeleting && typedLines[0].length < fullLines[0].length && <EditorCursor />}
                 </div>
                 <div className="min-h-[1.1em]">
                   <span className="gradient-text">
                     {typedLines[1].includes('&') ? typedLines[1].split('&')[0] : typedLines[1]}
                   </span>
                   {typedLines[1].includes('&') && ' &'}
-                  {currentLine === 1 && <EditorCursor />}
+                  {currentLine === 1 && !isDeleting && typedLines[1].length < fullLines[1].length && <EditorCursor />}
                 </div>
                 <div className="min-h-[1.1em]">
                   {typedLines[2]}
