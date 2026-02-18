@@ -42,6 +42,8 @@ export default function Hero() {
     let timeout: NodeJS.Timeout;
 
     const tick = () => {
+      const typingSpeed = 70; // Constant speed for both typing and deleting
+
       if (!isDeleting) {
         // TYPING PHASE
         if (lineIdx < fullLines.length) {
@@ -52,7 +54,7 @@ export default function Hero() {
               return next;
             });
             charIdx++;
-            timeout = setTimeout(tick, 70);
+            timeout = setTimeout(tick, typingSpeed);
           } else {
             // End of current line
             if (lineIdx < fullLines.length - 1) {
@@ -61,7 +63,7 @@ export default function Hero() {
               setCurrentLine(lineIdx);
               timeout = setTimeout(tick, 300); // Pause between lines
             } else {
-              // End of all lines - pause before deleting
+              // End of all lines - pause for 2 seconds before deleting
               timeout = setTimeout(() => {
                 setIsDeleting(true);
               }, 2000);
@@ -78,14 +80,14 @@ export default function Hero() {
               return next;
             });
             charIdx--;
-            timeout = setTimeout(tick, 30);
+            timeout = setTimeout(tick, typingSpeed);
           } else {
             // Line is empty, move to previous line
             if (lineIdx > 0) {
               lineIdx--;
               setCurrentLine(lineIdx);
               charIdx = fullLines[lineIdx].length;
-              timeout = setTimeout(tick, 30);
+              timeout = setTimeout(tick, typingSpeed);
             } else {
               // All lines empty - start typing again
               setIsDeleting(false);
