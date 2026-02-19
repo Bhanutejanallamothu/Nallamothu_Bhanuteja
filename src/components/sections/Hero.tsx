@@ -14,7 +14,7 @@ export default function Hero() {
   const [isDeleting, setIsDeleting] = useState(false);
   
   const fullUrl = "http://localhost:8080/profile";
-  const fullLines = ["I'm Bhanuteja", "Engineering", "Experiences."];
+  const fullLines = ["I’m Bhanuteja —", "crafting engineered", "web experiences."];
   const portraitImg = PlaceHolderImages.find(img => img.id === "portrait")?.imageUrl || "https://picsum.photos/seed/bhanuteja/800/1000";
   
   // URL typing effect
@@ -37,9 +37,9 @@ export default function Hero() {
 
   // Headline typing/deleting loop effect
   useEffect(() => {
-    const typingSpeed = 70;
-    const deleteSpeed = 130;
-    const pauseTime = 2000;
+    const typingSpeed = 60;
+    const deleteSpeed = 40;
+    const pauseTime = 2500;
 
     const timer = setTimeout(() => {
       if (!isDeleting) {
@@ -53,7 +53,8 @@ export default function Hero() {
         } else if (currentLine < fullLines.length - 1) {
           setCurrentLine(prev => prev + 1);
         } else {
-          setIsDeleting(true);
+          // Finished all lines, wait then delete
+          setTimeout(() => setIsDeleting(true), pauseTime);
         }
       } else {
         // Deleting mode
@@ -67,9 +68,10 @@ export default function Hero() {
           setCurrentLine(prev => prev - 1);
         } else {
           setIsDeleting(false);
+          setCurrentLine(0);
         }
       }
-    }, isDeleting ? deleteSpeed : typedLines[currentLine].length === fullLines[currentLine].length ? pauseTime : typingSpeed);
+    }, isDeleting ? deleteSpeed : typingSpeed);
 
     return () => clearTimeout(timer);
   }, [typedLines, currentLine, isDeleting]);
@@ -104,7 +106,7 @@ export default function Hero() {
                 </span>
               </motion.div>
               
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1] font-mono">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.15] font-mono">
                 <div className="min-h-[1.1em]">
                   {typedLines[0]}
                   {currentLine === 0 && !isDeleting && typedLines[0].length < fullLines[0].length && <EditorCursor />}
@@ -117,12 +119,12 @@ export default function Hero() {
                 </div>
                 <div className="min-h-[1.1em]">
                   {typedLines[2]}
-                  {(currentLine === 2 || (!isDeleting && typedLines[2] === fullLines[2])) && <EditorCursor />}
+                  {(currentLine === 2 || (isDeleting)) && <EditorCursor />}
                 </div>
               </h1>
               
               <p className="text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
-                Full Stack Software Engineer & UI/UX Designer specialized in building high-performance, architecturally sound web applications.
+                Full Stack Software Engineer specialized in building high-performance, architecturally sound web applications with a focus on refined UI/UX.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -139,7 +141,7 @@ export default function Hero() {
                   onClick={() => window.open('https://ik.imagekit.io/bhanuteja110/Nallamothu_Bhanuteja.pdf', '_blank')}
                 >
                   <Download className="w-4 h-4" />
-                  Download Resume
+                  Get Resume
                 </InteractiveButton>
               </div>
             </motion.div>
