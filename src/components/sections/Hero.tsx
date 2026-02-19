@@ -14,7 +14,7 @@ export default function Hero() {
   const [isDeleting, setIsDeleting] = useState(false);
   
   const fullUrl = "http://localhost:8080/profile";
-  const fullLines = ["Engineering", "Clean Code &", "Experiences."];
+  const fullLines = ["I'm Bhanuteja", "Engineering", "Experiences."];
   const portraitImg = PlaceHolderImages.find(img => img.id === "portrait")?.imageUrl || "https://picsum.photos/seed/bhanuteja/800/1000";
   
   // URL typing effect
@@ -111,9 +111,8 @@ export default function Hero() {
                 </div>
                 <div className="min-h-[1.1em]">
                   <span className="gradient-text">
-                    {typedLines[1].includes('&') ? typedLines[1].split('&')[0] : typedLines[1]}
+                    {typedLines[1]}
                   </span>
-                  {typedLines[1].includes('&') && ' &'}
                   {currentLine === 1 && !isDeleting && typedLines[1].length < fullLines[1].length && <EditorCursor />}
                 </div>
                 <div className="min-h-[1.1em]">

@@ -141,13 +141,6 @@ export default function Contact() {
                   </a>
                 </div>
               </div>
-
-              <Button variant="outline" size="lg" className="rounded-full gap-2" asChild>
-                <a href="https://ik.imagekit.io/bhanuteja110/Nallamothu_Bhanuteja.pdf" target="_blank" rel="noopener noreferrer">
-                  <Download className="w-4 h-4" />
-                  Download Resume
-                </a>
-              </Button>
             </motion.div>
 
             <motion.div
