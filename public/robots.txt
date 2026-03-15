@@ -1,4 +1,26 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nallamothu-bhanuteja.vercel.app/sitemap.xml
+# Allow AI Search Engine Bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+Sitemap: https://www.nallamothubhanuteja.dev/sitemap.xml

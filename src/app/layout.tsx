@@ -3,9 +3,21 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Bhanuteja | Full-stack Software Engineer',
-  description: 'Personal portfolio of Nallamothu Bhanuteja, a Full-stack Software Engineer specializing in React, Next.js, Node.js and UI/UX design.',
-  keywords: ['Bhanuteja', 'Full-stack Developer', 'Software Engineer', 'React', 'Next.js', 'UI/UX'],
+  title: 'Bhanuteja | Full Stack Developer & Cloud Engineer',
+  description: 'Personal portfolio of Nallamothu Bhanuteja, a Full Stack Developer, Cloud Engineer, and UI Developer specializing in high-performance web applications.',
+  keywords: ['Bhanuteja', 'Full Stack Developer', 'Cloud Engineer', 'UI Developer', 'Software Engineer', 'React', 'Next.js', 'Node.js', 'AWS'],
+  openGraph: {
+    title: 'Bhanuteja | Full Stack Developer & Cloud Engineer',
+    description: 'Personal portfolio of Nallamothu Bhanuteja, a Full Stack Developer, Cloud Engineer, and UI Developer.',
+    url: 'https://www.nallamothubhanuteja.dev/',
+    siteName: 'Bhanuteja Portfolio',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Bhanuteja | Full Stack Developer & Cloud Engineer',
+    description: 'Personal portfolio of Nallamothu Bhanuteja, a Full Stack Developer, Cloud Engineer, and UI Developer.',
+  },
 };
 
 export default function RootLayout({

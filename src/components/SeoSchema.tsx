@@ -3,7 +3,7 @@
  "@context": "https://schema.org",
  "@type": "Person",
  "name": "Bhanuteja",
- "url": "https://nallamothu-bhanuteja.vercel.app/",
+ "url": "https://www.nallamothubhanuteja.dev/",
  "jobTitle": "Freelance Full Stack Developer",
  "sameAs": [
    "https://www.linkedin.com/in/bhanuteja-nallamothu-4b8677315/"
