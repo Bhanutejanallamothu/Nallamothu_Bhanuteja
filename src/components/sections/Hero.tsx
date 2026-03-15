@@ -12,8 +12,9 @@ export default function Hero() {
   const [typedLines, setTypedLines] = useState(["", "", ""]);
   const [currentLine, setCurrentLine] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  
+  const fullUrl = "http://localhost:8080/profile";
   const fullLines = ["I’m Bhanuteja —", "Full Stack Developer,", "Cloud & UI Engineer."];
+  const portraitImg = PlaceHolderImages.find(img => img.id === "portrait")?.imageUrl || "https://picsum.photos/seed/bhanuteja/800/1000";
   
   // URL typing effect
   useEffect(() => {
@@ -122,7 +123,7 @@ export default function Hero() {
               </h1>
               
               <p className="text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
-                A passionate Full Stack Developer, Cloud Engineer, and UI Developer. I specialize in building high-performance, architecturally sound web applications with a focus on refined user experiences.
+                <strong>Who is Bhanuteja?</strong> He is a dedicated Full Stack Developer, Cloud Engineer, and UI Developer. He specializes in building high-performance, architecturally sound web applications, engineering robust backend APIs, and crafting refined user experiences that scale securely.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-6">

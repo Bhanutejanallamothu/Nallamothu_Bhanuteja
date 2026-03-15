@@ -69,10 +69,10 @@ export default function About() {
                 
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    I'm an experienced Full Stack Developer, Cloud Engineer, and UI Developer based in Telangana, India. My passion lies in bridging the gap between design and scalable cloud architectures, creating web experiences that are not only powerful but also delightful to use.
+                    I'm an experienced Full Stack Developer, Cloud Engineer, and UI Developer based in Telangana, India. My passion lies in bridging the gap between design and scalable cloud architectures, creating web experiences that are not only powerful but also delightful to use. 
                   </p>
                   <p>
-                    With a proven track record of deploying robust API services and building complex SaaS platforms, I engineer high-performance applications designed to scale seamlessly. Whether it's architecting React eco-systems or fine-tuning database structures, I approach every challenge with technical precision and creative frontend flair.
+                    Over my career, I have engineered and deployed <strong>15+ scalable cloud applications</strong>, optimized system response times by an average of <strong>40%</strong>, and architected reliable REST APIs servicing diverse enterprise client datasets. Whether it's architecting React eco-systems or fine-tuning database structures, I approach every challenge with technical precision and creative frontend flair.
                   </p>
                 </div>
 

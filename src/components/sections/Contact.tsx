@@ -288,7 +288,8 @@ export default function Contact() {
 
           <div className="mt-24 pt-12 border-t border-border/50 text-center">
              <p className="text-muted-foreground text-sm font-medium">
-                © {new Date().getFullYear()} Nallamothu Bhanuteja. Designed & Built with passion.
+                © {new Date().getFullYear()} Nallamothu Bhanuteja. Designed & Built with passion.<br/>
+                <span className="text-xs opacity-50 mt-2 inline-block">Last updated: March 2026</span>
              </p>
           </div>
         </div>
