@@ -7,6 +7,7 @@ import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
 import Experience from "@/components/sections/Experience";
 import UXShowcase from "@/components/sections/UXShowcase";
+import Certifications from "@/components/sections/Certifications";
 import Contact from "@/components/sections/Contact";
 import BackgroundWorkspace from "@/components/layout/BackgroundWorkspace";
 import { Toaster } from "@/components/ui/toaster";
@@ -53,6 +54,7 @@ export default function Home() {
       <Projects />
       <Experience />
       <UXShowcase />
+      <Certifications />
       <Contact />
       <Toaster />
       
