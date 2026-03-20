@@ -8,7 +8,6 @@ import {
   FileCode2, 
   Languages, 
   Database, 
-  ExternalLink,
   ShieldCheck,
   Terminal
 } from "lucide-react";
@@ -119,11 +118,6 @@ export default function Certifications() {
                     </p>
 
                     <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-1.5 text-[10px] font-mono text-primary/60 group-hover:text-primary transition-colors cursor-pointer">
-                        <ExternalLink className="w-3 h-3" />
-                        <span>Verify Certificate</span>
-                      </div>
-                      <div className="w-px h-3 bg-white/10" />
                       <div className="text-[10px] font-mono text-muted-foreground/40">
                         Status: <span className="text-green-500/60 uppercase">Active</span>
                       </div>
