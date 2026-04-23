@@ -15,12 +15,12 @@ export default function Hero() {
   const fullUrl = "http://localhost:8080/profile";
   const fullLines = ["I’m Bhanuteja —", "Full Stack Developer,", "Cloud & UI Engineer."];
   const portraitImg = PlaceHolderImages.find(img => img.id === "portrait")?.imageUrl || "https://picsum.photos/seed/bhanuteja/800/1000";
-  
+
   // URL typing effect
   useEffect(() => {
     let currentText = "";
     let currentIndex = 0;
-    
+
     const interval = setInterval(() => {
       if (currentIndex < fullUrl.length) {
         currentText += fullUrl[currentIndex];
@@ -30,7 +30,7 @@ export default function Hero() {
         clearInterval(interval);
       }
     }, 50);
-    
+
     return () => clearInterval(interval);
   }, []);
 
@@ -83,11 +83,11 @@ export default function Hero() {
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden">
       <div className="hero-glow top-1/4 -left-1/4" />
       <div className="hero-glow bottom-1/4 -right-1/4" style={{ background: "radial-gradient(circle, rgba(142, 68, 173, 0.15) 0%, rgba(72, 219, 251, 0.05) 100%)" }} />
-      
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            
+
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -104,7 +104,7 @@ export default function Hero() {
                   <Terminal className="w-4 h-4" /> system.init()
                 </span>
               </motion.div>
-              
+
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.15] font-mono">
                 <div className="min-h-[1.1em]">
                   {typedLines[0]}
@@ -121,23 +121,23 @@ export default function Hero() {
                   {(currentLine === 2 || (isDeleting)) && <EditorCursor />}
                 </div>
               </h1>
-              
+
               <p className="text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
                 <strong>Who is Bhanuteja?</strong> He is a dedicated Full Stack Developer, Cloud Engineer, and UI Developer. He specializes in building high-performance, architecturally sound web applications, engineering robust backend APIs, and crafting refined user experiences that scale securely.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-6">
-                <InteractiveButton 
-                  variant="primary" 
+                <InteractiveButton
+                  variant="primary"
                   onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Explore Work
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </InteractiveButton>
-                
-                <InteractiveButton 
-                  variant="outline" 
-                  onClick={() => window.open('https://ik.imagekit.io/bhanuteja110/Nallamothu_Bhanuteja.pdf', '_blank')}
+
+                <InteractiveButton
+                  variant="outline"
+                  onClick={() => window.open('https://ik.imagekit.io/bhanuteja110/Resume.pdf?updatedAt=1776933068745', '_blank')}
                 >
                   <Download className="w-4 h-4" />
                   Get Resume
@@ -153,7 +153,7 @@ export default function Hero() {
             >
               <div className="relative w-full max-w-[480px]">
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-[2rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-                
+
                 <div className="relative glass-card rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
                   <div className="bg-[#1e1e1e]/90 border-b border-white/5 px-4 py-3 flex items-center gap-3">
                     <div className="flex gap-1.5 shrink-0">
@@ -161,12 +161,12 @@ export default function Hero() {
                       <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
                       <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
                     </div>
-                    
+
                     <div className="hidden sm:flex gap-2 text-muted-foreground/40 shrink-0">
                       <ChevronLeft className="w-3.5 h-3.5" />
                       <ChevronRight className="chevron-right w-3.5 h-3.5" />
                     </div>
-                    
+
                     <div className="flex-1 bg-black/40 border border-white/5 rounded-md px-3 py-1 flex items-center gap-2 overflow-hidden">
                       <Globe className="w-3 h-3 text-muted-foreground/40 shrink-0" />
                       <div className="text-[11px] font-mono text-muted-foreground/80 truncate">
@@ -174,21 +174,21 @@ export default function Hero() {
                         <span className="w-1 h-3.5 bg-primary inline-block ml-0.5 animate-pulse align-middle" />
                       </div>
                     </div>
-                    
+
                     <RotateCw className="w-3.5 h-3.5 text-muted-foreground/40 shrink-0" />
                   </div>
 
                   <div className="relative aspect-[3/4] bg-[#0d1117]">
-                    <Image 
-                      src={portraitImg} 
+                    <Image
+                      src={portraitImg}
                       alt="Bhanuteja Portrait"
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                       priority
                     />
-                    
+
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117]/60 via-transparent to-transparent pointer-events-none" />
-                    
+
                     <div className="absolute bottom-4 left-4 right-4 p-3 glass-card rounded-xl opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 border-white/10">
                       <div className="flex items-center justify-between">
                         <div>
