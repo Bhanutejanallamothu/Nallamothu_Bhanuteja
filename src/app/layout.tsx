@@ -2,21 +2,61 @@
 import type {Metadata} from 'next';
 import './globals.css';
 
+const siteUrl = 'https://www.nallamothubhanuteja.dev';
+const siteTitle = 'Nallamothu Bhanuteja | Full Stack Developer, Cloud Engineer & UI/UX Developer';
+const siteDescription = 'Portfolio of Nallamothu Bhanuteja, a full stack developer, cloud engineer, and UI/UX developer in India building high-performance React, Next.js, Node.js, AWS, and modern web applications.';
+
 export const metadata: Metadata = {
-  title: 'Bhanuteja | Full Stack Developer & Cloud Engineer',
-  description: 'Personal portfolio of Nallamothu Bhanuteja, a Full Stack Developer, Cloud Engineer, and UI Developer specializing in high-performance web applications.',
-  keywords: ['Bhanuteja', 'Full Stack Developer', 'Cloud Engineer', 'UI Developer', 'Software Engineer', 'React', 'Next.js', 'Node.js', 'AWS'],
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteTitle,
+    template: '%s | Nallamothu Bhanuteja',
+  },
+  description: siteDescription,
+  keywords: [
+    'Nallamothu Bhanuteja',
+    'Bhanuteja',
+    'Full Stack Developer India',
+    'Cloud Engineer India',
+    'UI UX Developer',
+    'Frontend Developer',
+    'React Developer',
+    'Next.js Developer',
+    'Node.js Developer',
+    'AWS Cloud Engineer',
+    'Software Engineer Portfolio',
+    'Web Developer Portfolio',
+  ],
+  authors: [{ name: 'Nallamothu Bhanuteja', url: siteUrl }],
+  creator: 'Nallamothu Bhanuteja',
+  publisher: 'Nallamothu Bhanuteja',
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'Bhanuteja | Full Stack Developer & Cloud Engineer',
-    description: 'Personal portfolio of Nallamothu Bhanuteja, a Full Stack Developer, Cloud Engineer, and UI Developer.',
-    url: 'https://www.nallamothubhanuteja.dev/',
-    siteName: 'Bhanuteja Portfolio',
+    title: siteTitle,
+    description: siteDescription,
+    url: '/',
+    siteName: 'Nallamothu Bhanuteja Portfolio',
+    locale: 'en_IN',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Bhanuteja | Full Stack Developer & Cloud Engineer',
-    description: 'Personal portfolio of Nallamothu Bhanuteja, a Full Stack Developer, Cloud Engineer, and UI Developer.',
+    title: siteTitle,
+    description: siteDescription,
+    creator: '@Bhanuteja',
   },
 };
 

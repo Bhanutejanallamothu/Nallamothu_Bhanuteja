@@ -2,10 +2,10 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, type HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface InteractiveButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface InteractiveButtonProps extends Omit<HTMLMotionProps<"button">, "ref"> {
   children: React.ReactNode;
   className?: string;
   variant?: "primary" | "outline";

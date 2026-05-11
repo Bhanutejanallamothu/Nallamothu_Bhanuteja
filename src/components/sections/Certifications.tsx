@@ -147,7 +147,7 @@ export default function Certifications() {
               </div>
               <div className="hidden sm:block h-4 w-px bg-white/10" />
               <div className="hidden sm:block text-[10px] font-mono text-muted-foreground/40">
-                Last integrity check: {new Date().toLocaleDateString()}
+                Last integrity check: 2026-05-11
               </div>
             </div>
             <div className="text-[10px] font-mono text-primary/40">
